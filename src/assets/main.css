@@ -578,22 +578,6 @@ video {
   height: auto;
 }
 
-@font-face {
-  font-family: Roboto;
-
-  font-weight: 700;
-
-  src: url(/fonts/Roboto-Bold.woff) format("woff");
-}
-
-@font-face {
-  font-family: Roboto;
-
-  font-weight: 400;
-
-  src: url(/fonts/Roboto-Regular.woff) format("woff");
-}
-
 .container {
   width: 100%;
 }
