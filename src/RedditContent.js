@@ -131,10 +131,11 @@ class RedditContent extends React.Component {
               >
                 {this.state.posts.map(post => {
                   if (post.data.stickied) return false
-                  return <PostPreview post={post.data} />;
+                  return <PostPreview key={post.data.name} post={post.data} />;
                 })}
               </ul>
             </div>
+          </>
         }
       </>
     )
