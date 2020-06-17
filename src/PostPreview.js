@@ -3,6 +3,8 @@ import Moment from 'react-moment';
 import {
   Link
 } from "react-router-dom";
+import LinkIcon from './imageComponents/LinkIcon';
+import TextIcon from './imageComponents/TextIcon';
 
 class PostPreview extends React.Component {
   constructor() {
@@ -171,7 +173,7 @@ class PostPreview extends React.Component {
           `}
         >
           {/* TODO: un-duplicate */}
-          {(post.thumbnail === 'default' || post.thumbnail === 'self' || post.thumbnail === 'nsfw') &&
+          {(post.thumbnail === 'default') &&
             <div
               className={`
                 flex-shrink-0
@@ -194,13 +196,18 @@ class PostPreview extends React.Component {
                   text-xs
                   text-gray-500
                 `}
-                stlye={{position: 'relative', top: '-1px'}}
+                style={{position: 'relative', top: '-1px'}}
               >
-                {post.thumbnail}
+                <div className={`
+                  w-4
+                  h-4
+                `}>
+                  <LinkIcon fill={`white`} />
+                </div>
               </div>
             </div>
           }
-          {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
+          {post.is_self &&
             <div
               className={`
                 flex-shrink-0
@@ -213,6 +220,45 @@ class PostPreview extends React.Component {
                 mr-2
               `}
             >
+              <div
+                className={`
+                  flex
+                  w-full
+                  h-full
+                  items-center
+                  justify-center
+                  text-xs
+                  text-gray-500
+                `}
+                style={{position: 'relative', top: '-1px'}}
+              >
+                <div className={`
+                  w-4
+                  h-4
+                `}>
+                  <TextIcon fill={`white`} />
+                </div>
+              </div>
+            </div>
+          }
+          {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
+            <div
+              className={`
+                relative
+                flex-shrink-0
+                w-12
+                h-12
+                mt-1
+                mr-2
+              `}
+            >
+              <div className={`
+                w-full
+                h-full
+                bg-black
+                rounded
+                overflow-hidden
+              `}>
                 <img
                   className={`
                     object-cover
@@ -221,7 +267,31 @@ class PostPreview extends React.Component {
                   `}
                   onClick={() => this.handleThumbClick()}
                   src={post.thumbnail}
-                  alt={post.title} />
+                  alt={post.title}
+                />
+              </div>
+              {post.post_hint === 'link' &&
+                <div
+                  className={`
+                    absolute
+                    bottom-0
+                    right-0
+                    bg-white
+                    border-2
+                    border-black
+                    rounded-full
+                  `}
+                  style={{
+                    width: '1.2rem',
+                    height: '1.2rem',
+                    bottom: '-.2rem',
+                    right: '-.2rem',
+                    padding: '.2rem',
+                  }}
+                >
+                  <LinkIcon />
+                </div>
+              }
             </div>
           }
           <div
