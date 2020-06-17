@@ -170,6 +170,36 @@ class PostPreview extends React.Component {
             flex
           `}
         >
+          {/* TODO: un-duplicate */}
+          {(post.thumbnail === 'default' || post.thumbnail === 'self' || post.thumbnail === 'nsfw') &&
+            <div
+              className={`
+                flex-shrink-0
+                w-12
+                h-12
+                mt-1
+                bg-black
+                rounded
+                overflow-hidden
+                mr-2
+              `}
+            >
+              <div
+                className={`
+                  flex
+                  w-full
+                  h-full
+                  items-center
+                  justify-center
+                  text-xs
+                  text-gray-500
+                `}
+                stlye={{position: 'relative', top: '-1px'}}
+              >
+                {post.thumbnail}
+              </div>
+            </div>
+          }
           {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
             <div
               className={`

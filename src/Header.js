@@ -13,6 +13,10 @@ const options = [
 function Header(props) {
   let history = useHistory();
   
+  const handleOnChange = (selectedOption) => {
+    console.log('option:', selectedOption)
+    history.push(`/r/${selectedOption.value}`)
+  };
 
   return(
     <div className={`
@@ -43,7 +47,7 @@ function Header(props) {
           options={options}
           // defaultValue={{value: props.subreddit, label: props.subreddit}}
           value={{value: props.subreddit, label: `r/${props.subreddit}`}}
-          onChange={(selectedOption) => {history.push(`/r/${selectedOption.value}`)}}
+          onChange={(selectedOption) => {handleOnChange(selectedOption)}}
         />
       </div>
       <div className={`
