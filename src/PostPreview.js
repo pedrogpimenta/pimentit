@@ -75,44 +75,56 @@ class PostPreview extends React.Component {
           </div>
         )
       }
-    } else if (post.url.indexOf(`i.imgur`) >= 0) {
+    } else if (post.url.indexOf(`gifv`) >= 0) {
+      const newUrl = post.url.slice(0, -4) + 'mp4';
       return (
         <div
           style={{
             maxWidth: '100vw',
-            maxHeight: '100vh'
           }}
           className={`
+            relative
             flex
-            items-center
+            items-start
             justify-center
             mt-2
             bg-black
           `}
         >
-          <img
+          <video
+            // className={`
+            //   object-contain
+            //   w-full
+            //   h-full
+            // `}
             // style={{filter: 'blur(50px)'}}
-            src={post.url}
-            alt={post.title}
+            controls
+            src={newUrl}
+            // alt={post.title}
           />
         </div>
       )
-    } else if (post.url.indexOf(`jpg`) >= 0 || post.url.indexOf(`webm`) >= 0 || post.url.indexOf(`png`) >= 0 || post.url.indexOf(`gif`) >= 0) {
+    } else if (post.url.indexOf(`jpg`) >= 0 || post.url.indexOf(`webm`) >= 0 || post.url.indexOf(`png`) >= 0 || (post.url.indexOf(`gif`) >= 0 && post.url.indexOf(`gifv`) < 0)) {
       return (
         <div
           style={{
             maxWidth: '100vw',
-            maxHeight: '100vh'
           }}
           className={`
+            relative
             flex
-            items-center
+            items-start
             justify-center
             mt-2
             bg-black
           `}
         >
           <img
+            className={`
+              object-contain
+              w-full
+              h-full
+            `}
             // style={{filter: 'blur(50px)'}}
             src={post.url}
             alt={post.title}
@@ -149,13 +161,14 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          <a href={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</a> - <Moment fromNow ago date={post.created * 1000} /> - <a href={`//reddit.com/u/${post.author}`} target={`_blank`}>{post.author}</a>
+          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - <Moment fromNow ago date={post.created * 1000} /> - <a href={`//reddit.com/u/${post.author}`} target={`_blank`}>{post.author}</a>
         </div>
         <div
           className={`
             flex
           `}
         >
+          {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
           <div
             className={`
               flex-shrink-0
@@ -178,6 +191,7 @@ class PostPreview extends React.Component {
               src={post.thumbnail}
               alt={post.title} />
           </div>
+          }
           <div
             className={`
               font-semibold
@@ -197,6 +211,7 @@ class PostPreview extends React.Component {
             className={`
               -ml-2
               -mr-2
+              overflow-hidden
             `}
           >
             {this.renderPostContent(post)}
