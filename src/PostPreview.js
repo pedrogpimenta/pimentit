@@ -51,7 +51,6 @@ class PostPreview extends React.Component {
         const sourceWidth = post.secure_media.oembed.width;
         const sourceHeight = post.secure_media.oembed.height;
         const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
 
         let finalWidth = 0;
         let finalHeight = 0
