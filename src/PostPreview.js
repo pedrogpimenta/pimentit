@@ -1,5 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
+import {
+  Link
+} from "react-router-dom";
 
 class PostPreview extends React.Component {
   constructor() {
@@ -169,28 +172,28 @@ class PostPreview extends React.Component {
           `}
         >
           {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
-          <div
-            className={`
-              flex-shrink-0
-              w-12
-              h-12
-              mt-1
-              bg-black
-              rounded
-              overflow-hidden
-              mr-2
-            `}
-          >
-            <img
+            <div
               className={`
-                object-cover
-                w-full
-                h-full
+                flex-shrink-0
+                w-12
+                h-12
+                mt-1
+                bg-black
+                rounded
+                overflow-hidden
+                mr-2
               `}
-              onClick={() => this.handleThumbClick()}
-              src={post.thumbnail}
-              alt={post.title} />
-          </div>
+            >
+                <img
+                  className={`
+                    object-cover
+                    w-full
+                    h-full
+                  `}
+                  onClick={() => this.handleThumbClick()}
+                  src={post.thumbnail}
+                  alt={post.title} />
+            </div>
           }
           <div
             className={`
