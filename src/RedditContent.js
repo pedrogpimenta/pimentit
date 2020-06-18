@@ -17,15 +17,41 @@ class RedditContent extends React.Component {
       error: '',
       errorMessage: '',
       posts: [],
+      count: 0,
     }
   }
 
-  fetchData() {
+  fetchData(direction) {
     const subreddit = this.props.match.params.subreddit || DEFAULT_SUBREDDIT;
 
-    this.setState({isLoading: true})
+    this.setState({
+      isLoading: true,
+    });
+
+    let fetchCount = ``;
+    let fetchDirection = ``;
     
-    fetch(`https://www.reddit.com/r/${subreddit}/hot/.json?limit=25`)
+    if (direction) {
+      if (direction === `next`) {
+        this.setState({
+          count: this.state.count + 25,
+        });
+        const lastPostName = this.state.posts[this.state.posts?.length - 1]?.data?.name;
+
+        fetchDirection = direction ? `&after=${lastPostName}` : ``;
+      } else if (direction === `prev`) {
+        this.setState({
+          count: this.state.count - 24,
+        });
+        const firstPostName = this.state.posts[0]?.data?.name;
+        
+        fetchDirection = direction ? `&before=${firstPostName}` : ``;
+      }
+
+      fetchCount = `&count=${this.state.count}`;
+    }
+
+    fetch(`https://www.reddit.com/r/${subreddit}/hot/.json?limit=25${fetchCount}${fetchDirection}`)
       .then(response => response.json())
       .then(data => {
         if (data.error) {
@@ -89,16 +115,16 @@ class RedditContent extends React.Component {
     }
   }
 
-  handleSubredditChange(selectedOption ) {
-    console.log('sheisse:', selectedOption)
+  handleMorePosts(direction) {
+    this.fetchData(direction);
   }
+
 
   render() {
     return (
       <>
         <Header
           subreddit={this.props.match.params.subreddit || 'popular'}
-          onSubredditChange={(selectedOption) => this.handleSubredditChange(selectedOption)}
         />
         {this.state.isLoading &&
           <div className={`
@@ -134,6 +160,43 @@ class RedditContent extends React.Component {
                   return <PostPreview key={post.data.name} post={post.data} />;
                 })}
               </ul>
+            </div>
+            <div className={`
+              flex
+              py-4
+              px-2
+            `}
+            style={{justifyContent: this.state.count >= 25 ? 'space-between' : 'flex-end'}}>
+              {this.state.count >= 25 &&
+                <button
+                  className={`
+                    px-4
+                    pt-1
+                    pb-2
+                    bg-purple-800
+                    text-white
+                    font-semibold
+                    rounded
+                  `}
+                  onClick={() => this.handleMorePosts(`prev`)}
+                >
+                  &lt; previous
+                </button>
+              }
+              <button
+                className={`
+                  px-4
+                  pt-1
+                  pb-2
+                  bg-purple-800
+                  text-white
+                  font-semibold
+                  rounded
+                `}
+                onClick={() => this.handleMorePosts(`next`)}
+              >
+                next &gt;
+              </button>
             </div>
           </>
         }
