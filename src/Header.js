@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import PimentitLogo from './imageComponents/PimentitLogo';
 import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 
@@ -34,7 +35,7 @@ function Header(props) {
         w-6
         h-6
       `}>
-        <img src={`/logo-pimentit.jpg`} alt={`pimentit`} />
+        <PimentitLogo />
       </div>
       <div
         className={`
