@@ -34,7 +34,7 @@ function Header(props) {
         w-6
         h-6
       `}>
-        <img src={`/logo-pimentit.png`} alt={`pimentit`} />
+        <img src={`/logo-pimentit.jpg`} alt={`pimentit`} />
       </div>
       <div
         className={`
