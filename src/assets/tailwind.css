@@ -5,6 +5,22 @@ iframe {
   height: 100%;
 }
 
+.post-preview a {
+  @apply text-red-600 font-semibold underline;
+}
+
+.post-preview p {
+  @apply my-2;
+}
+
+.post-preview p:first-child {
+  @apply mt-0;
+}
+
+.post-preview p:last-child {
+  @apply mb-0;
+}
+
 @tailwind components;
 
 @tailwind utilities;

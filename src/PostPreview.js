@@ -112,6 +112,7 @@ class PostPreview extends React.Component {
                   text-gray-500
                 `}
                 style={{position: 'relative', top: '-1px'}}
+                onClick={() => this.handleThumbClick()}
               >
                 <div className={`
                   w-4
@@ -132,6 +133,7 @@ class PostPreview extends React.Component {
                 mt-1
                 mr-2
               `}
+              onClick={() => this.handleThumbClick()}
             >
               <div className={`
                 w-full
@@ -139,14 +141,14 @@ class PostPreview extends React.Component {
                 bg-black
                 rounded
                 overflow-hidden
-              `}>
+              `}
+              >
                 <img
                   className={`
                     object-cover
                     w-full
                     h-full
                   `}
-                  onClick={() => this.handleThumbClick()}
                   src={post.thumbnail}
                   alt={post.title}
                 />

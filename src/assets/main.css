@@ -583,6 +583,27 @@ iframe {
   height: 100%;
 }
 
+.post-preview a {
+  --text-opacity: 1;
+  color: #e53e3e;
+  color: rgba(229, 62, 62, var(--text-opacity));
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.post-preview p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-preview p:first-child {
+  margin-top: 0;
+}
+
+.post-preview p:last-child {
+  margin-bottom: 0;
+}
+
 .container {
   width: 100%;
 }
