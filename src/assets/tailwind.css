@@ -5,6 +5,10 @@ iframe {
   height: 100%;
 }
 
+.post-preview a {
+  @apply text-red-600 font-semibold underline;
+}
+
 @tailwind components;
 
 @tailwind utilities;

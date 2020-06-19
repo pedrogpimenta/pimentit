@@ -41,7 +41,6 @@ function Embed(props) {
       // TODO: make videos not higher than screen
       finalWidth = viewportWidth;
       finalHeight = parseInt((finalWidth * sourceHeight) / sourceWidth) > 0 ? parseInt((finalWidth * sourceHeight) / sourceWidth) : 'auto';
-      console.log(htmlEntities(props.post.secure_media.oembed.html))
 
       if (props.post.secure_media.oembed.type === `twitter.com`) {
         const script = document.createElement("script");
@@ -122,6 +121,20 @@ function Embed(props) {
           src={props.post.url}
           alt={props.post.title}
         />
+      </div>
+    )
+  } else if (props.post.is_self && !!props.post.selftext_html) {
+    return (
+      <div
+        className={`
+          post-preview
+          p-2
+        `}
+      >
+        <div
+          dangerouslySetInnerHTML={{__html: htmlEntities(props.post.selftext_html)}}
+        >
+        </div>
       </div>
     )
   }
