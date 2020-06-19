@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import RedditLogo from './imageComponents/RedditLogo';
 import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 
@@ -35,7 +34,7 @@ function Header(props) {
         w-6
         h-6
       `}>
-        <RedditLogo />
+        <img src={`/logo-pimentit.png`} alt={`pimentit`} />
       </div>
       <div
         className={`
