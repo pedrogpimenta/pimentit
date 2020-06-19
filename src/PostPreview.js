@@ -88,7 +88,7 @@ class PostPreview extends React.Component {
               </div>
             </div>
           }
-          {post.is_self &&
+          {post.is_self && post.thumbnail === `self` &&
             <div
               className={`
                 flex-shrink-0
@@ -171,6 +171,28 @@ class PostPreview extends React.Component {
                   }}
                 >
                   <LinkIcon />
+                </div>
+              }
+              {post.is_self &&
+                <div
+                  className={`
+                    absolute
+                    bottom-0
+                    right-0
+                    bg-white
+                    border-2
+                    border-black
+                    rounded-full
+                  `}
+                  style={{
+                    width: '1.2rem',
+                    height: '1.2rem',
+                    bottom: '-.2rem',
+                    right: '-.2rem',
+                    padding: '.2rem',
+                  }}
+                >
+                  <TextIcon />
                 </div>
               }
             </div>
