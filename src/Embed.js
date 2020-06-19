@@ -42,7 +42,7 @@ function Embed(props) {
       finalWidth = viewportWidth;
       finalHeight = parseInt((finalWidth * sourceHeight) / sourceWidth) > 0 ? parseInt((finalWidth * sourceHeight) / sourceWidth) : 'auto';
 
-      if (props.post.secure_media.oembed.type === `twitter.com`) {
+      if (props.post.secure_media.type === `twitter.com`) {
         const script = document.createElement("script");
         script.async = true;
         script.src = "https://platform.twitter.com/widgets.js";
@@ -53,7 +53,11 @@ function Embed(props) {
         <div
           style={{
             width: finalWidth,
-            height: finalHeight
+            height: props.post.secure_media.type === `twitter.com` ? finalHeight + 40 : finalHeight,
+            paddingTop: props.post.secure_media.type === `twitter.com` ? `1rem` : ``,
+            paddingLeft: props.post.secure_media.type === `twitter.com` ? `.5rem` : ``,
+            paddingRight: props.post.secure_media.type === `twitter.com` ? `.5rem` : ``,
+            background: props.post.secure_media.type === `twitter.com` ? `white` : ``,
           }}
           className={`
             flex
