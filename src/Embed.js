@@ -1,17 +1,57 @@
 import React from 'react';
+import VideoPlayer from './VideoPlayer';
+import 'video.js/dist/video-js.css';
 
 function Embed(props) {
   const htmlEntities = str => {
     return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&mdash;/g, "—");
   }
 
+  
+  const guidGenerator = () => {
+    const S4 = function() {
+      return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
+    }
+    return ("video"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4())
+  }
+
+  
   if (!!props.post.secure_media) {
     if (!!props.post.secure_media.reddit_video) {
+      const thisID = guidGenerator();
+
+      const sourceWidth = props.post.secure_media.reddit_video.width;
+      const sourceHeight = props.post.secure_media.reddit_video.height;
+
+      const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < window.innerHeight ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
+
+      const audioJsOptions = {
+        autoplay: true,
+        controls: true,
+        muted: true,
+        sources: [{
+          src: props.post.secure_media.reddit_video.fallback_url.replace('DASH_360', 'audio'),
+          type: 'audio/mp3',
+        }]
+      }
+
+      const videoJsOptions = {
+        autoplay: true,
+        controls: true,
+        muted: true,
+        width: window.innerWidth,
+        height: videoHeight,
+        sources: [{
+          src: props.post.secure_media.reddit_video.fallback_url,
+          type: 'video/mp4',
+        }]
+      }
+
       return (
         <div
           style={{
-            maxWidth: '100vw',
-            maxHeight: '100vh'
+            maxWidth: window.innerWidth,
+            maxHeight: window.innerHeight - 200,
           }}
           className={`
             flex
@@ -19,15 +59,25 @@ function Embed(props) {
             justify-center
             mt-2
             bg-black
+            overflow-hidden
           `}
         >
-          <video
-            className={`
-              max-h-screen
-            `}
-            src={props.post.secure_media.reddit_video.fallback_url}
-            controls
-          ></video>
+          <div
+            style={{
+              width: 0,
+              height: 0,
+              overflow: `hidden`,
+            }}
+          >
+            <VideoPlayer 
+              identifier={`audio-js-${thisID}`}
+              { ...audioJsOptions }
+            />
+          </div>
+          <VideoPlayer 
+            identifier={thisID}
+            { ...videoJsOptions }
+          />
         </div>
       )
     } else if (!!props.post.secure_media.oembed) {
@@ -76,7 +126,7 @@ function Embed(props) {
     return (
       <div
         style={{
-          maxWidth: '100vw',
+          maxWidth: window.innerWidth,
         }}
         className={`
           relative
@@ -104,7 +154,7 @@ function Embed(props) {
     return (
       <div
         style={{
-          maxWidth: '100vw',
+          maxWidth: window.innerWidth,
         }}
         className={`
           relative
