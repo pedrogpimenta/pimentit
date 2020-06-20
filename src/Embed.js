@@ -69,10 +69,9 @@ function Embed(props) {
               overflow: `hidden`,
             }}
           >
-            <VideoPlayer 
-              identifier={`audio-js-${thisID}`}
-              { ...audioJsOptions }
-            />
+            <audio
+              src={props.post.secure_media.reddit_video.fallback_url.replace('DASH_360', 'audio')}
+              className={`audio-js-${thisID}`} />
           </div>
           <VideoPlayer 
             identifier={thisID}
