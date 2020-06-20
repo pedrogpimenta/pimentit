@@ -25,16 +25,6 @@ function Embed(props) {
 
       const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < window.innerHeight ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
 
-      const audioJsOptions = {
-        autoplay: true,
-        controls: true,
-        muted: true,
-        sources: [{
-          src: props.post.secure_media.reddit_video.fallback_url.replace('DASH_360', 'audio'),
-          type: 'audio/mp3',
-        }]
-      }
-
       const videoJsOptions = {
         autoplay: true,
         controls: true,
