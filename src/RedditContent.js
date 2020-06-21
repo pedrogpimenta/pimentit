@@ -5,7 +5,7 @@ import PostPreview from './PostPreview.js';
 import Header from './Header.js';
 import SubredditError from './SubredditError.js';
 
-const DEFAULT_SUBREDDIT = 'popular';
+const DEFAULT_SUBREDDIT = 'all';
 
 class RedditContent extends React.Component {
   constructor() {
