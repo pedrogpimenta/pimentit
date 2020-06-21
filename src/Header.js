@@ -6,16 +6,15 @@ import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
 
 const options = [
-  { value: 'all', label: 'r/all' },
-  { value: 'popular', label: 'r/popular' },
-  { value: 'portugal', label: 'r/portugal' }
+  { value: 'all', label: 'all' },
+  { value: 'popular', label: 'popular' },
+  { value: 'portugal', label: 'portugal' },
 ]
 
 function Header(props) {
   let history = useHistory();
   
   const handleOnChange = (selectedOption) => {
-    console.log('option:', selectedOption)
     history.push(`/r/${selectedOption.value}`)
   };
 
@@ -45,9 +44,40 @@ function Header(props) {
         `}
       >
         <CreatableSelect
+          formatCreateLabel={(inputValue => 'Open r/' + inputValue)}
           options={options}
+          styles={{
+            control: base => ({
+              ...base,
+              height: '30px',
+              minHeight: '30px',
+              overflow: 'hidden',
+            }),
+            valueContainer: base => ({
+              ...base,
+              height: '30px',
+              top: '-1px',
+            }),
+            input: base => ({
+              ...base,
+              height: '30px',
+              position: 'relative',
+              top: '-3px',
+            }),
+            indicatorSeparator: base => ({
+              ...base,
+              // marginTop: '7px',
+            }),
+            dropdownIndicator: base => ({
+              ...base,
+              padding: '6px 8px',
+              // position: 'relative',
+              // top: '-1px',
+            }),
+          }}
           // defaultValue={{value: props.subreddit, label: props.subreddit}}
-          value={{value: props.subreddit, label: `r/${props.subreddit}`}}
+          // inputValue={props.subreddit}
+          value={{value: props.subreddit, label: `${props.subreddit}`}}
           onChange={(selectedOption) => {handleOnChange(selectedOption)}}
         />
       </div>
