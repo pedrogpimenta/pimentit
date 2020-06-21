@@ -153,7 +153,7 @@ class PostPreview extends React.Component {
                   alt={post.title}
                 />
               </div>
-              {post.post_hint === 'link' &&
+              {post.post_hint === 'link' && post.url.indexOf('imgur') < 0 &&
                 <div
                   className={`
                     absolute
