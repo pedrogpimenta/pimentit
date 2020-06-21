@@ -22,6 +22,7 @@ class PostPreview extends React.Component {
 
   render() {
     const post = this.props.post;
+    const imagePositionClasses = this.props.imageOnLeft ? `mr-2 order-1` : `ml-2 order-3`;
 
     return (
       <li
@@ -64,7 +65,7 @@ class PostPreview extends React.Component {
                 bg-black
                 rounded
                 overflow-hidden
-                mr-2
+                ${imagePositionClasses}
               `}
             >
               <div
@@ -98,7 +99,7 @@ class PostPreview extends React.Component {
                 bg-black
                 rounded
                 overflow-hidden
-                mr-2
+                ${imagePositionClasses}
               `}
             >
               <div
@@ -131,7 +132,7 @@ class PostPreview extends React.Component {
                 w-12
                 h-12
                 mt-1
-                mr-2
+                ${imagePositionClasses}
               `}
               onClick={() => this.handleThumbClick()}
             >
@@ -201,8 +202,10 @@ class PostPreview extends React.Component {
           }
           <div
             className={`
+              flex-grow
               font-semibold
               leading-snug
+              order-2
             `}
           >
             <a 

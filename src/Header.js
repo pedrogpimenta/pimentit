@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
-import MenuIcon from './imageComponents/MenuIcon';
+// import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
+import ImagePositionButton from './ImagePositionButton';
 
 const options = [
   { value: 'all', label: 'r/all' },
@@ -51,11 +52,23 @@ function Header(props) {
         />
       </div>
       <div className={`
+        flex
+        items-center
+        justify-center
+        w-6
+        h-6
+      `}>
+        <ImagePositionButton
+          onClick={() => props.handleImagePositionChange()}
+          imageOnLeft={props.imageOnLeft}
+        />
+      </div>
+      {/* <div className={`
         w-6
         h-6
       `}>
         <MenuIcon />
-      </div>
+      </div> */}
     </div>
   )
 }
