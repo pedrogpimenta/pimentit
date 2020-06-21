@@ -6,6 +6,7 @@ import Header from './Header.js';
 import SubredditError from './SubredditError.js';
 
 const DEFAULT_SUBREDDIT = 'all';
+const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
 
 class RedditContent extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class RedditContent extends React.Component {
       errorMessage: '',
       posts: [],
       count: 0,
+      imageOnLeft: IMAGE_ON_LEFT,
     }
   }
 
@@ -119,12 +121,18 @@ class RedditContent extends React.Component {
     this.fetchData(direction);
   }
 
+  handleImagePositionChange() {
+    localStorage.setItem('imageOnLeft', !this.state.imageOnLeft);
+    this.setState({imageOnLeft: !this.state.imageOnLeft})
+  }
 
   render() {
     return (
       <>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+          handleImagePositionChange={() => this.handleImagePositionChange()}
+          imageOnLeft={this.state.imageOnLeft}
         />
         {this.state.isLoading &&
           <div className={`
@@ -157,7 +165,13 @@ class RedditContent extends React.Component {
               >
                 {this.state.posts.map(post => {
                   if (post.data.stickied) return false
-                  return <PostPreview key={post.data.name} post={post.data} />;
+                  return (
+                    <PostPreview
+                      key={post.data.name}
+                      post={post.data}
+                      imageOnLeft={this.state.imageOnLeft}
+                    />
+                  )
                 })}
               </ul>
             </div>
@@ -173,7 +187,7 @@ class RedditContent extends React.Component {
                     px-4
                     pt-1
                     pb-2
-                    bg-purple-800
+                    bg-primary
                     text-white
                     font-semibold
                     rounded
@@ -188,7 +202,7 @@ class RedditContent extends React.Component {
                   px-4
                   pt-1
                   pb-2
-                  bg-purple-800
+                  bg-primary
                   text-white
                   font-semibold
                   rounded
