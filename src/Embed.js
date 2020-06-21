@@ -25,12 +25,25 @@ function Embed(props) {
 
       const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < window.innerHeight ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
 
+      const sourceUrl = props.post.secure_media.reddit_video.fallback_url;
+
+      let sourceUrlSplit = [];
+      if (sourceUrl.indexOf('?') >= 0) {
+        sourceUrlSplit = sourceUrl.split('?')[0].split('/');
+      } else {
+        sourceUrlSplit = sourceUrl.split('/');
+      }
+      const dashPartIndex = sourceUrlSplit.findIndex(part => part.indexOf('DASH') >= 0);
+      sourceUrlSplit[dashPartIndex] = 'audio'; 
+
+      const audioSrc = sourceUrlSplit.join('/');
+
       const audioJsOptions = {
         autoplay: true,
         controls: true,
         muted: true,
         sources: [{
-          src: props.post.secure_media.reddit_video.fallback_url.replace('DASH_360', 'audio'),
+          src: audioSrc,
           type: 'audio/mp3',
         }]
       }
@@ -42,7 +55,7 @@ function Embed(props) {
         width: window.innerWidth,
         height: videoHeight,
         sources: [{
-          src: props.post.secure_media.reddit_video.fallback_url,
+          src: sourceUrl,
           type: 'video/mp4',
         }]
       }
@@ -177,6 +190,46 @@ function Embed(props) {
         />
       </div>
     )
+  } else if (props.post.url.indexOf(`imgur.com`) >= 0 && props.post.url.indexOf('i.imgur.com') < 0) {
+    const sourceUrl = props.post.url;
+
+    let sourceUrlSplit = [];
+    if (sourceUrl.indexOf('?') >= 0) {
+      sourceUrlSplit = sourceUrl.split('?')[0].split('/');
+    } else {
+      sourceUrlSplit = sourceUrl.split('/');
+    }
+    const imgId = sourceUrlSplit[3];
+
+    const imgSrc = `https://i.imgur.com/${imgId}.jpg`;
+
+    return (
+      <div
+        style={{
+          maxWidth: window.innerWidth,
+        }}
+        className={`
+          relative
+          flex
+          items-start
+          justify-center
+          mt-2
+          bg-black
+        `}
+      >
+        <img
+          className={`
+            object-contain
+            w-full
+            h-full
+          `}
+          // style={{filter: 'blur(50px)'}}
+          src={imgSrc}
+          alt={props.post.title}
+        />
+      </div>
+    )
+
   } else if (props.post.is_self && !!props.post.selftext_html) {
     return (
       <div
