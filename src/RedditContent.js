@@ -124,7 +124,7 @@ class RedditContent extends React.Component {
     return (
       <>
         <Header
-          subreddit={this.props.match.params.subreddit || 'popular'}
+          subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
         />
         {this.state.isLoading &&
           <div className={`
