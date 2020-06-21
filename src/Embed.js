@@ -1,13 +1,9 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
 import 'video.js/dist/video-js.css';
+import { htmlEntities } from './helpers/htmlEntities';
 
 function Embed(props) {
-  const htmlEntities = str => {
-    return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&mdash;/g, "—");
-  }
-
-  
   const guidGenerator = () => {
     const S4 = function() {
       return (((1+Math.random())*0x10000)|0).toString(16).substring(1)

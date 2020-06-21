@@ -5,11 +5,15 @@ import {
   Route,
 } from "react-router-dom";
 import RedditContent from './RedditContent.js'
+import RedditComments from './RedditComments.js'
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route path='/r/:subreddit/comments/:id'>
+          <RedditComments />
+        </Route>
         <Route path='/r/:subreddit'>
           <RedditContent />
         </Route>

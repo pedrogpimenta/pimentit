@@ -35,6 +35,7 @@ class PostPreview extends React.Component {
           border-b last:border-0
           border-solid
           border-gray-400
+          ${this.props.classes}
         `}
       >
         <div
