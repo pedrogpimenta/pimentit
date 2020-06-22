@@ -578,6 +578,11 @@ video {
   height: auto;
 }
 
+svg {
+  display: inline-block;
+  vertical-align: top;
+}
+
 iframe {
   width: 100%;
   height: 100%;

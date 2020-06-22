@@ -9,6 +9,7 @@
     "autoprefixer": "^9.8.0",
     "moment": "^2.26.0",
     "postcss-cli": "^7.1.1",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-moment": "^0.9.7",

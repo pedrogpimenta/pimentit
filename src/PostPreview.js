@@ -1,10 +1,12 @@
 import React from 'react';
-import Moment from 'react-moment';
+import moment from 'moment';
 import {
   Link
 } from "react-router-dom";
 import LinkIcon from './imageComponents/LinkIcon';
 import TextIcon from './imageComponents/TextIcon';
+import PointsIcon from './imageComponents/PointsIcon';
+import CommentsIcon from './imageComponents/CommentsIcon';
 import Embed from './Embed';
 
 class PostPreview extends React.Component {
@@ -24,6 +26,25 @@ class PostPreview extends React.Component {
     const post = this.props.post;
     const imagePositionClasses = this.props.imageOnLeft ? `mr-2 order-1` : `ml-2 order-3`;
 
+    moment.locale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s:  'seconds',
+        ss: '%ss',
+        m:  'a minute',
+        mm: '%dm',
+        h:  'an hour',
+        hh: '%dh',
+        d:  'a day',
+        dd: '%dd',
+        M:  'a month',
+        MM: '%dM',
+        y:  'a year',
+        yy: '%dY'
+      }
+    })
+
     return (
       <li
         className={`
@@ -32,7 +53,7 @@ class PostPreview extends React.Component {
           pt-1
           pb-2
           px-2
-          border-b last:border-0
+          border-b-2 last:border-0
           border-solid
           border-gray-400
           ${this.props.classes}
@@ -48,7 +69,7 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - <Moment fromNow ago date={post.created * 1000} /> - <a href={`//reddit.com/u/${post.author}`} target={`_blank`}>{post.author}</a>
+          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - {moment(post.created * 1000).fromNow(true)} - <a href={`//reddit.com/u/${post.author}`} target={`_blank`}>{`u/${post.author}`}</a>{post.link_flair_text && ` - [${post.link_flair_text}]`}
         </div>
         <div
           className={`
@@ -158,6 +179,7 @@ class PostPreview extends React.Component {
               {post.post_hint === 'link' && post.url.indexOf('imgur') < 0 &&
                 <div
                   className={`
+                    flex
                     absolute
                     bottom-0
                     right-0
@@ -180,6 +202,7 @@ class PostPreview extends React.Component {
               {post.is_self &&
                 <div
                   className={`
+                    flex
                     absolute
                     bottom-0
                     right-0
@@ -219,6 +242,7 @@ class PostPreview extends React.Component {
         </div>
         <div
           className={`
+
             text-gray-500
             text-sm
             whitespace-no-wrap
@@ -227,7 +251,15 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          {post.score}pts - <Link to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} comments</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
+          {post.score} <PointsIcon fill={`#a0aec0`}/>
+          <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
+          <a
+            className={`ml-2 border border-solid border-gray-500 rounded px-1 leading-6`}
+            style={{paddingBottom: '1px'}}
+            href={`//reddit.com/${post.subreddit}/comments/${post.id}`}
+          >
+            Open on reddit.com
+          </a>
         </div>
         {this.state.showPostContent &&
           <div
