@@ -227,7 +227,7 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          {post.score}pts - <Link to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} comments</Link>{post.link_flair_text && ` - ${post.link_flair_text}`}
+          {post.score}pts - <Link to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} comments</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
         </div>
         {this.state.showPostContent &&
           <div
