@@ -169,10 +169,12 @@ class RedditComments extends React.Component {
                 py-2
               `}
             >
-              <ul>
+              <ul className={`
+                pl-2
+              `}>
                 {this.state.comments.map(comment => {
                   return (
-                    <Comment comment={comment}/>
+                    <Comment key={comment.data.id} comment={comment}/>
                   )
                 })}
               </ul>

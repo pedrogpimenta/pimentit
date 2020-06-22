@@ -1,9 +1,9 @@
 import React from 'react';
 import Moment from 'react-moment';
-import Comment from './Comment.js';
+import Reply from './Comment.js';
 import { htmlEntities } from './helpers/htmlEntities';
 
-class PostPreview extends React.Component {
+class Comment extends React.Component {
   constructor() {
     super();
 
@@ -22,7 +22,6 @@ class PostPreview extends React.Component {
 
     return (
       <li
-        key={comment.id}
         className={`
           relative
           flex
@@ -30,7 +29,6 @@ class PostPreview extends React.Component {
           pt-1
           px-4
           my-2
-          mx-2
           border-l-2
           border-solid
           border-gray-400
@@ -86,20 +84,27 @@ class PostPreview extends React.Component {
             >
             </div>
             <div className={`${hideElements}`}>
-              {!!comment.replies && comment.replies.data.children.map(comment => {
-                return (
-                  <Comment comment={comment}/>
-                )
-              })}
+              <ul>
+                {!!comment.replies && comment.replies.data.children.map(comment => {
+                  return (
+                    <Reply key={comment.data.id} comment={comment}/>
+                  )
+                })}
+              </ul>
             </div>
           </>
         }
         {this.props.comment.kind === 'more' &&
-          <div>load more (you wish)</div>
+          <div className={`
+            text-gray-500
+            text-sm
+          `}>
+            load more (you wish)
+          </div>
         }
       </li>
     )
   }
 }
 
-export default PostPreview;
+export default Comment;
