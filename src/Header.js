@@ -5,15 +5,29 @@ import PimentitLogo from './imageComponents/PimentitLogo';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
 
-const options = [
-  { value: 'all', label: 'all' },
-  { value: 'popular', label: 'popular' },
-  { value: 'portugal', label: 'portugal' },
-]
 
 function Header(props) {
+  const options = [
+    { value: 'all', label: 'all' },
+    { value: 'popular', label: 'popular' },
+    { value: 'portugal', label: 'portugal' },
+  ]
+
+  const dropdownHasCurrentSubreddit = options.findIndex(subs => subs.value === props.subreddit);
+
+  if (!!dropdownHasCurrentSubreddit) {
+    options.splice(dropdownHasCurrentSubreddit, 1);
+    options.unshift({ value: props.subreddit, label: props.subreddit});
+  } else {
+    options.unshift({ value: props.subreddit, label: props.subreddit});
+  }
+
   let history = useHistory();
   
+  const handleLogoClick = () => {
+    history.push(`/`)
+  };
+
   const handleOnChange = (selectedOption) => {
     history.push(`/r/${selectedOption.value}`)
   };
@@ -26,15 +40,20 @@ function Header(props) {
       z-30
       w-full
       bg-white
-      shadow
+      border-b-2
+      border-solid
+      border-gray-400
       h-10
       p-2
       font-semibold
     `}>
-      <div className={`
-        w-6
-        h-6
-      `}>
+      <div
+        className={`
+          w-6
+          h-6
+        `}
+        onClick={() => handleLogoClick()}
+      >
         <PimentitLogo />
       </div>
       <div
@@ -56,7 +75,8 @@ function Header(props) {
             valueContainer: base => ({
               ...base,
               height: '30px',
-              top: '-1px',
+              position: 'relative',
+              top: '-3px',
             }),
             input: base => ({
               ...base,
@@ -64,15 +84,13 @@ function Header(props) {
               position: 'relative',
               top: '-3px',
             }),
-            indicatorSeparator: base => ({
+            indicatorsContainer: base => ({
               ...base,
-              // marginTop: '7px',
+              height: '28px',
             }),
             dropdownIndicator: base => ({
               ...base,
               padding: '6px 8px',
-              // position: 'relative',
-              // top: '-1px',
             }),
           }}
           // defaultValue={{value: props.subreddit, label: props.subreddit}}

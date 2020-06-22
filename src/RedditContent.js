@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
+import qs from 'query-string';
 
 import PostPreview from './PostPreview.js';
+import Pagination from './Pagination.js';
 import Header from './Header.js';
 import SubredditError from './SubredditError.js';
 
@@ -25,35 +27,29 @@ class RedditContent extends React.Component {
 
   fetchData(direction) {
     const subreddit = this.props.match.params.subreddit || DEFAULT_SUBREDDIT;
+    const parsedQuery = qs.parse(this.props.location.search)
+    const count = parsedQuery.count || this.state.count;
+    const after = parsedQuery.after;
+    const before = parsedQuery.before;
 
+    console.log(`after: ${after}, before: ${before}`)
+
+    let fetchUrl = `https://www.reddit.com/r/${subreddit}/hot/.json?limit=25`;
+    
     this.setState({
+      count: count,
       isLoading: true,
     });
 
-    let fetchCount = ``;
-    let fetchDirection = ``;
-    
-    if (direction) {
-      if (direction === `next`) {
-        this.setState({
-          count: this.state.count + 25,
-        });
-        const lastPostName = this.state.posts[this.state.posts?.length - 1]?.data?.name;
-
-        fetchDirection = direction ? `&after=${lastPostName}` : ``;
-      } else if (direction === `prev`) {
-        this.setState({
-          count: this.state.count - 24,
-        });
-        const firstPostName = this.state.posts[0]?.data?.name;
-        
-        fetchDirection = direction ? `&before=${firstPostName}` : ``;
-      }
-
-      fetchCount = `&count=${this.state.count}`;
+    if (!!after) {
+      fetchUrl += `&count=${count}&after=${after}`;
+    } else if (!!before) {
+      fetchUrl += `&count=${count}&before=${before}`;
     }
 
-    fetch(`https://www.reddit.com/r/${subreddit}/hot/.json?limit=25${fetchCount}${fetchDirection}`)
+    console.log(`fetch: ${fetchUrl}`)
+
+    fetch(fetchUrl)
       .then(response => response.json())
       .then(data => {
         if (data.error) {
@@ -111,14 +107,9 @@ class RedditContent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.subreddit !== prevProps.match.params.subreddit) {
-
+    if ((this.props.match.params.subreddit !== prevProps.match.params.subreddit) || (this.props.location.search !== prevProps.location.search)) {
       this.fetchData();
     }
-  }
-
-  handleMorePosts(direction) {
-    this.fetchData(direction);
   }
 
   handleImagePositionChange() {
@@ -175,43 +166,12 @@ class RedditContent extends React.Component {
                 })}
               </ul>
             </div>
-            <div className={`
-              flex
-              py-4
-              px-2
-            `}
-            style={{justifyContent: this.state.count >= 25 ? 'space-between' : 'flex-end'}}>
-              {this.state.count >= 25 &&
-                <button
-                  className={`
-                    px-4
-                    pt-1
-                    pb-2
-                    bg-primary
-                    text-white
-                    font-semibold
-                    rounded
-                  `}
-                  onClick={() => this.handleMorePosts(`prev`)}
-                >
-                  &lt; previous
-                </button>
-              }
-              <button
-                className={`
-                  px-4
-                  pt-1
-                  pb-2
-                  bg-primary
-                  text-white
-                  font-semibold
-                  rounded
-                `}
-                onClick={() => this.handleMorePosts(`next`)}
-              >
-                next &gt;
-              </button>
-            </div>
+            <Pagination
+              subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+              count={this.state.count}
+              lastPostName={this.state.posts[this.state.posts?.length - 1]?.data?.name}
+              firstPostName={this.state.posts[0]?.data?.name}
+            />
           </>
         }
       </>
