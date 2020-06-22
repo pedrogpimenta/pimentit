@@ -155,6 +155,7 @@ class RedditComments extends React.Component {
                   imageOnLeft={this.state.post.imageOnLeft}
                   classes={`
                     m-2
+                    border-b
                     border
                     border-solid
                     border-gray-400
