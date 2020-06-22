@@ -35,6 +35,7 @@ class PostPreview extends React.Component {
           border-b last:border-0
           border-solid
           border-gray-400
+          ${this.props.classes}
         `}
       >
         <div
@@ -215,6 +216,18 @@ class PostPreview extends React.Component {
               {post.title}
             </a>
           </div>
+        </div>
+        <div
+          className={`
+            text-gray-500
+            text-sm
+            whitespace-no-wrap
+            pt-1
+            overflow-y-hidden
+            overflow-x-auto
+          `}
+        >
+          {post.score}pts - <Link to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} comments</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
         </div>
         {this.state.showPostContent &&
           <div
