@@ -166,10 +166,12 @@ class RedditComments extends React.Component {
             <div
               className={`
                 flex
+                max-w-full
                 py-2
               `}
             >
               <ul className={`
+                max-w-full
                 pl-2
               `}>
                 {this.state.comments.map(comment => {

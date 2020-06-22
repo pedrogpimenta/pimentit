@@ -26,8 +26,9 @@ class Comment extends React.Component {
           relative
           flex
           flex-col
+          max-w-full
           pt-1
-          px-4
+          pl-4
           my-2
           border-l-2
           border-solid
@@ -79,6 +80,7 @@ class Comment extends React.Component {
               className={`
                 ${hideElements}
                 flex
+                pr-4
               `}
               dangerouslySetInnerHTML={{__html: htmlEntities(comment.body_html)}}
             >
