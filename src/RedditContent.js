@@ -130,6 +130,7 @@ class RedditContent extends React.Component {
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
+          showAllPostsContent={this.state.showAllPostsContent}
           imageOnLeft={this.state.imageOnLeft}
         />
         {this.state.isLoading &&

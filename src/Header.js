@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
+import CollapseIcon from './imageComponents/CollapseIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
@@ -108,9 +109,16 @@ function Header(props) {
         `}
         onClick={() => props.handleShowAllPostsContent()}
       >
-        <ExpandIcon
-          fill={`black`}
-        />
+        {props.showAllPostsContent &&
+          <CollapseIcon
+            fill={`black`}
+          />
+        }
+        {!props.showAllPostsContent &&
+          <ExpandIcon
+            fill={`black`}
+          />
+        }
       </div>
       <div className={`
         flex
