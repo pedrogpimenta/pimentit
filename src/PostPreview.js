@@ -19,25 +19,13 @@ class PostPreview extends React.Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.showPostContent !== prevState.showPostContent) {
-      if (!(!!nextProps?.post?.secure_media?.oembed || !!nextProps?.post?.secure_media?.reddit_video || nextProps?.post?.url.indexOf(`gif`) >= 0 || nextProps?.post?.url.indexOf(`gifv`) >= 0)) {
-        return { showPostContent: nextProps.showPostContent };
-      } else {
-        return null;
+  componentDidUpdate(prevProps) {
+    if (this.props.showPostContent !== prevProps.showPostContent) {
+      if (!(!!this.props?.post?.secure_media?.oembed || !!this.props?.post?.secure_media?.reddit_video || this.props?.post?.url.indexOf(`gif`) >= 0 || this.props?.post?.url.indexOf(`gifv`) >= 0)) {
+        this.setState({showPostContent: this.props.showPostContent})
       }
-    } else {
-      return null;
     }
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.showPostContent !== prevProps.showPostContent) {
-  //     if (!!this.props?.post?.secure_media?.oembed || !!this.props?.post?.secure_media?.reddit_video || this.props?.post?.url.indexOf(`gif`) < 0 || this.props?.post?.url.indexOf(`gifv`) < 0) {
-  //       this.setState({showPostContent: this.props.showPostContent})
-  //     }
-  //   }
-  // }
 
   handleThumbClick() {
     this.setState({showPostContent: !this.state.showPostContent});
