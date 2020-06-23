@@ -33,8 +33,6 @@ class RedditContent extends React.Component {
     const after = parsedQuery.after;
     const before = parsedQuery.before;
 
-    console.log(`after: ${after}, before: ${before}`)
-
     let fetchUrl = `https://www.reddit.com/r/${subreddit}/hot/.json?limit=25`;
     
     this.setState({
@@ -47,8 +45,6 @@ class RedditContent extends React.Component {
     } else if (!!before) {
       fetchUrl += `&count=${count}&before=${before}`;
     }
-
-    console.log(`fetch: ${fetchUrl}`)
 
     fetch(fetchUrl)
       .then(response => response.json())
@@ -119,7 +115,6 @@ class RedditContent extends React.Component {
   }
 
   handleShowAllPostsContent() {
-    console.log('did it')
     this.setState({showAllPostsContent: !this.state.showAllPostsContent})
   }
 

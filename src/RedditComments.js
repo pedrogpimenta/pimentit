@@ -33,7 +33,6 @@ class RedditComments extends React.Component {
       isLoading: true,
     });
     
-    console.log('fetch:', `https://www.reddit.com/r/${subreddit}/comments/${id}/hot/.json?limit=25`);
     fetch(`https://www.reddit.com/r/${subreddit}/comments/${id}/hot/.json?limit=25`)
       .then(response => response.json())
       .then(data => {
