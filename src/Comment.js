@@ -79,8 +79,10 @@ class Comment extends React.Component {
             <div
               className={`
                 ${hideElements}
+                comment-content
                 flex
                 pr-4
+                break-words
               `}
               dangerouslySetInnerHTML={{__html: htmlEntities(comment.body_html)}}
             >

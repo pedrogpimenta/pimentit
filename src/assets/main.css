@@ -588,7 +588,8 @@ iframe {
   height: 100%;
 }
 
-.post-preview a {
+.post-preview a,
+.comment-content a {
   --text-opacity: 1;
   color: #e53e3e;
   color: rgba(229, 62, 62, var(--text-opacity));

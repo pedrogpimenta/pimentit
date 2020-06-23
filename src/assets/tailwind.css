@@ -10,7 +10,8 @@ iframe {
   height: 100%;
 }
 
-.post-preview a {
+.post-preview a,
+.comment-content a {
   @apply text-red-600 font-semibold underline;
 }
 
