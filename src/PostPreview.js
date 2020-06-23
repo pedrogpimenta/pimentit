@@ -269,7 +269,10 @@ class PostPreview extends React.Component {
               overflow-hidden
             `}
           >
-            <Embed post={post} />
+            <Embed
+              post={post}
+              imageOnLeft={this.props.imageOnLeft}
+            />
           </div>
         }
       </li>

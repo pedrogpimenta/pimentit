@@ -152,7 +152,7 @@ class RedditComments extends React.Component {
                 <PostPreview
                   key={this.state.post.data.name}
                   post={this.state.post.data}
-                  imageOnLeft={this.state.post.imageOnLeft}
+                  imageOnLeft={this.state.imageOnLeft}
                   classes={`
                     m-2
                     border-b
