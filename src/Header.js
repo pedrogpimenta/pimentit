@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
+import ExpandIcon from './imageComponents/ExpandIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
@@ -97,6 +98,18 @@ function Header(props) {
           // inputValue={props.subreddit}
           value={{value: props.subreddit, label: `${props.subreddit}`}}
           onChange={(selectedOption) => {handleOnChange(selectedOption)}}
+        />
+      </div>
+      <div
+        className={`
+          w-6
+          h-6
+          mr-2
+        `}
+        onClick={() => props.handleShowAllPostsContent()}
+      >
+        <ExpandIcon
+          fill={`black`}
         />
       </div>
       <div className={`

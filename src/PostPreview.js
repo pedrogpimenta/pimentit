@@ -7,6 +7,7 @@ import LinkIcon from './imageComponents/LinkIcon';
 import TextIcon from './imageComponents/TextIcon';
 import PointsIcon from './imageComponents/PointsIcon';
 import CommentsIcon from './imageComponents/CommentsIcon';
+import RedditIcon from './imageComponents/RedditIcon';
 import Embed from './Embed';
 
 class PostPreview extends React.Component {
@@ -18,8 +19,191 @@ class PostPreview extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.showPostContent !== prevState.showPostContent) {
+      if (!(!!nextProps?.post?.secure_media?.oembed || !!nextProps?.post?.secure_media?.reddit_video || nextProps?.post?.url.indexOf(`gif`) >= 0 || nextProps?.post?.url.indexOf(`gifv`) >= 0)) {
+        return { showPostContent: nextProps.showPostContent };
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.showPostContent !== prevProps.showPostContent) {
+  //     if (!!this.props?.post?.secure_media?.oembed || !!this.props?.post?.secure_media?.reddit_video || this.props?.post?.url.indexOf(`gif`) < 0 || this.props?.post?.url.indexOf(`gifv`) < 0) {
+  //       this.setState({showPostContent: this.props.showPostContent})
+  //     }
+  //   }
+  // }
+
   handleThumbClick() {
     this.setState({showPostContent: !this.state.showPostContent});
+  }
+
+  renderThumbs(post, imagePositionClasses) {
+    if (!!post.preview) {
+      return (
+        <div
+          className={`
+            relative
+            flex-shrink-0
+            w-12
+            h-12
+            mt-1
+            ${imagePositionClasses}
+          `}
+          onClick={() => this.handleThumbClick()}
+        >
+          <div className={`
+            w-full
+            h-full
+            bg-black
+            rounded
+            overflow-hidden
+          `}
+          >
+            <img
+              className={`
+                object-cover
+                w-full
+                h-full
+              `}
+              sizes={`48px`}
+              srcSet={
+                post.preview.images[0].resolutions.map(resolution => {
+                  return (
+                    `${resolution.url.replace(/&amp;/g, `&`)} ${resolution.width}w`
+                  )
+                })
+              }
+              src={post.thumbnail}
+              alt={post.title}
+            />
+          </div>
+          {post.post_hint === 'link' && post.url.indexOf('imgur') < 0 &&
+            <div
+              className={`
+                flex
+                absolute
+                bottom-0
+                right-0
+                bg-white
+                border-2
+                border-black
+                rounded-full
+              `}
+              style={{
+                width: '1.2rem',
+                height: '1.2rem',
+                bottom: '-.2rem',
+                right: '-.2rem',
+                padding: '.2rem',
+              }}
+            >
+              <LinkIcon />
+            </div>
+          }
+          {post.is_self &&
+            <div
+              className={`
+                flex
+                absolute
+                bottom-0
+                right-0
+                bg-white
+                border-2
+                border-black
+                rounded-full
+              `}
+              style={{
+                width: '1.2rem',
+                height: '1.2rem',
+                bottom: '-.2rem',
+                right: '-.2rem',
+                padding: '.2rem',
+              }}
+            >
+              <TextIcon />
+            </div>
+          }
+        </div>
+      )
+
+    } else if (post.thumbnail === 'default') {
+      return (
+        <div
+          className={`
+            flex-shrink-0
+            w-12
+            h-12
+            mt-1
+            bg-black
+            rounded
+            overflow-hidden
+            ${imagePositionClasses}
+          `}
+        >
+          <div
+            className={`
+              flex
+              w-full
+              h-full
+              items-center
+              justify-center
+              text-xs
+              text-gray-500
+            `}
+            style={{position: 'relative', top: '-1px'}}
+          >
+            <div className={`
+              w-4
+              h-4
+            `}>
+              <LinkIcon fill={`white`} />
+            </div>
+          </div>
+        </div>
+      )
+    } else if (post.is_self && post.thumbnail === `self`) {
+      return (
+        <div
+          className={`
+            flex-shrink-0
+            w-12
+            h-12
+            mt-1
+            bg-black
+            rounded
+            overflow-hidden
+            ${imagePositionClasses}
+          `}
+        >
+          <div
+            className={`
+              flex
+              w-full
+              h-full
+              items-center
+              justify-center
+              text-xs
+              text-gray-500
+            `}
+            style={{position: 'relative', top: '-1px'}}
+            onClick={() => this.handleThumbClick()}
+          >
+            <div className={`
+              w-4
+              h-4
+            `}>
+              <TextIcon fill={`white`} />
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 
   render() {
@@ -76,154 +260,7 @@ class PostPreview extends React.Component {
             flex
           `}
         >
-          {/* TODO: un-duplicate */}
-          {(post.thumbnail === 'default') &&
-            <div
-              className={`
-                flex-shrink-0
-                w-12
-                h-12
-                mt-1
-                bg-black
-                rounded
-                overflow-hidden
-                ${imagePositionClasses}
-              `}
-            >
-              <div
-                className={`
-                  flex
-                  w-full
-                  h-full
-                  items-center
-                  justify-center
-                  text-xs
-                  text-gray-500
-                `}
-                style={{position: 'relative', top: '-1px'}}
-              >
-                <div className={`
-                  w-4
-                  h-4
-                `}>
-                  <LinkIcon fill={`white`} />
-                </div>
-              </div>
-            </div>
-          }
-          {post.is_self && post.thumbnail === `self` &&
-            <div
-              className={`
-                flex-shrink-0
-                w-12
-                h-12
-                mt-1
-                bg-black
-                rounded
-                overflow-hidden
-                ${imagePositionClasses}
-              `}
-            >
-              <div
-                className={`
-                  flex
-                  w-full
-                  h-full
-                  items-center
-                  justify-center
-                  text-xs
-                  text-gray-500
-                `}
-                style={{position: 'relative', top: '-1px'}}
-                onClick={() => this.handleThumbClick()}
-              >
-                <div className={`
-                  w-4
-                  h-4
-                `}>
-                  <TextIcon fill={`white`} />
-                </div>
-              </div>
-            </div>
-          }
-          {post.thumbnail !== 'default' && post.thumbnail !== 'self' && post.thumbnail !== 'nsfw' &&
-            <div
-              className={`
-                relative
-                flex-shrink-0
-                w-12
-                h-12
-                mt-1
-                ${imagePositionClasses}
-              `}
-              onClick={() => this.handleThumbClick()}
-            >
-              <div className={`
-                w-full
-                h-full
-                bg-black
-                rounded
-                overflow-hidden
-              `}
-              >
-                <img
-                  className={`
-                    object-cover
-                    w-full
-                    h-full
-                  `}
-                  src={post.thumbnail}
-                  alt={post.title}
-                />
-              </div>
-              {post.post_hint === 'link' && post.url.indexOf('imgur') < 0 &&
-                <div
-                  className={`
-                    flex
-                    absolute
-                    bottom-0
-                    right-0
-                    bg-white
-                    border-2
-                    border-black
-                    rounded-full
-                  `}
-                  style={{
-                    width: '1.2rem',
-                    height: '1.2rem',
-                    bottom: '-.2rem',
-                    right: '-.2rem',
-                    padding: '.2rem',
-                  }}
-                >
-                  <LinkIcon />
-                </div>
-              }
-              {post.is_self &&
-                <div
-                  className={`
-                    flex
-                    absolute
-                    bottom-0
-                    right-0
-                    bg-white
-                    border-2
-                    border-black
-                    rounded-full
-                  `}
-                  style={{
-                    width: '1.2rem',
-                    height: '1.2rem',
-                    bottom: '-.2rem',
-                    right: '-.2rem',
-                    padding: '.2rem',
-                  }}
-                >
-                  <TextIcon />
-                </div>
-              }
-            </div>
-          }
+          {this.renderThumbs(post, imagePositionClasses)}
           <div
             className={`
               flex-grow
@@ -242,7 +279,8 @@ class PostPreview extends React.Component {
         </div>
         <div
           className={`
-
+            flex
+            items-center
             text-gray-500
             text-sm
             whitespace-no-wrap
@@ -251,15 +289,21 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          {post.score} <PointsIcon fill={`#a0aec0`}/>
+          <div>
+            {post.score} <PointsIcon fill={`#a0aec0`}/>
+          </div>
           <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
-          <a
-            className={`ml-2 border border-solid border-gray-500 rounded px-1 leading-6`}
-            style={{paddingBottom: '1px'}}
-            href={`//reddit.com/${post.subreddit}/comments/${post.id}`}
-          >
-            Open on reddit.com
-          </a>
+          <div className={`
+            flex-grow
+            text-right
+          `}>
+            <a
+              className={`ml-2`}
+              href={`//reddit.com/${post.subreddit}/comments/${post.id}`}
+            >
+              <RedditIcon fill={`#a0aec0`}/>
+            </a>
+          </div>
         </div>
         {this.state.showPostContent &&
           <div

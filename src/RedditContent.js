@@ -22,6 +22,7 @@ class RedditContent extends React.Component {
       posts: [],
       count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
+      showAllPostsContent: false,
     }
   }
 
@@ -117,12 +118,18 @@ class RedditContent extends React.Component {
     this.setState({imageOnLeft: !this.state.imageOnLeft})
   }
 
+  handleShowAllPostsContent() {
+    console.log('did it')
+    this.setState({showAllPostsContent: !this.state.showAllPostsContent})
+  }
+
   render() {
     return (
       <>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
+          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
           imageOnLeft={this.state.imageOnLeft}
         />
         {this.state.isLoading &&
@@ -161,6 +168,7 @@ class RedditContent extends React.Component {
                       key={post.data.name}
                       post={post.data}
                       imageOnLeft={this.state.imageOnLeft}
+                      showPostContent={this.state.showAllPostsContent}
                     />
                   )
                 })}
