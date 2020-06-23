@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
+import PostPreview from './PostPreview.js';
 import 'video.js/dist/video-js.css';
 import { htmlEntities } from './helpers/htmlEntities';
 
@@ -239,6 +240,22 @@ function Embed(props) {
         >
         </div>
       </div>
+    )
+  } else if (!!props.post.crosspost_parent_list) {
+    return (
+      <PostPreview
+        key={props.post.crosspost_parent_list[0].name}
+        post={props.post.crosspost_parent_list[0]}
+        imageOnLeft={props.imageOnLeft}
+        classes={`
+          m-2
+          border-b
+          border
+          border-solid
+          border-gray-400
+          rounded
+        `}
+      />
     )
   }
 
