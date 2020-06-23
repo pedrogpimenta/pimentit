@@ -60,10 +60,12 @@ function Embed(props) {
       return (
         <div
           style={{
-            maxWidth: window.innerWidth,
+            width: window.innerWidth,
+            maxWidth: `100%`,
             maxHeight: window.innerHeight - 200,
           }}
           className={`
+            video-js--container
             flex
             items-center
             justify-center
@@ -136,7 +138,8 @@ function Embed(props) {
     return (
       <div
         style={{
-          maxWidth: window.innerWidth,
+          width: window.innerWidth,
+          maxWidth: `100%`,
         }}
         className={`
           relative
@@ -164,7 +167,8 @@ function Embed(props) {
     return (
       <div
         style={{
-          maxWidth: window.innerWidth,
+          width: window.innerWidth,
+          maxWidth: `100%`,
         }}
         className={`
           relative
@@ -203,7 +207,8 @@ function Embed(props) {
     return (
       <div
         style={{
-          maxWidth: window.innerWidth,
+          width: window.innerWidth,
+          maxWidth: `100%`,
         }}
         className={`
           relative

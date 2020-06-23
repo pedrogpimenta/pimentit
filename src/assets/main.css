@@ -588,6 +588,11 @@ iframe {
   height: 100%;
 }
 
+.video-js--container > div,
+.video-js {
+  max-width: 100%;
+}
+
 .post-preview a,
 .comment-content a {
   --text-opacity: 1;
