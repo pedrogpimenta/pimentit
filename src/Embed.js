@@ -206,7 +206,7 @@ function Embed(props) {
   } else if (props.post.url.indexOf(`jpg`) >= 0 || props.post.url.indexOf(`jpeg`) >= 0 || props.post.url.indexOf(`webm`) >= 0 || props.post.url.indexOf(`png`) >= 0 || (props.post.url.indexOf(`gif`) >= 0 && props.post.url.indexOf(`gifv`) < 0)) {
     let postUrl = props.post.url;
 
-    if (props.post.url.indexOf('&amp;')) {
+    if (props.post.url.indexOf('preview.redd.it')) {
       postUrl = postUrl.replace(/&amp;/g, `&`);
     }
 
