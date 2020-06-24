@@ -127,6 +127,7 @@ function Embed(props) {
             justify-center
             mt-2
             bg-black
+            overflow-hidden
           `}
           dangerouslySetInnerHTML={{__html: htmlEntities(props.post.secure_media.oembed.html)}}
         >
@@ -148,6 +149,7 @@ function Embed(props) {
           justify-center
           mt-2
           bg-black
+          overflow-hidden
         `}
       >
         <video
@@ -177,6 +179,7 @@ function Embed(props) {
           justify-center
           mt-2
           bg-black
+          overflow-hidden
         `}
       >
         <img
@@ -217,6 +220,7 @@ function Embed(props) {
           justify-center
           mt-2
           bg-black
+          overflow-hidden
         `}
       >
         <img
@@ -238,6 +242,7 @@ function Embed(props) {
         className={`
           post-preview
           p-2
+          overflow-hidden
         `}
       >
         <div
