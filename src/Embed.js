@@ -13,7 +13,47 @@ function Embed(props) {
   }
 
   
-  if (!!props.post.secure_media) {
+  if (props.post.url.indexOf(`imgur.com`) >= 0 && props.post.url.indexOf('i.imgur.com') < 0) {
+    const sourceUrl = props.post.url;
+
+    let sourceUrlSplit = [];
+    if (sourceUrl.indexOf('?') >= 0) {
+      sourceUrlSplit = sourceUrl.split('?')[0].split('/');
+    } else {
+      sourceUrlSplit = sourceUrl.split('/');
+    }
+    const imgId = sourceUrlSplit[3];
+
+    const imgSrc = `https://i.imgur.com/${imgId}.jpg`;
+
+    return (
+      <div
+        style={{
+          width: window.innerWidth,
+          maxWidth: `100%`,
+        }}
+        className={`
+          relative
+          flex
+          items-start
+          justify-center
+          bg-black
+          overflow-hidden
+        `}
+      >
+        <img
+          className={`
+            object-contain
+            w-full
+            h-full
+          `}
+          // style={{filter: 'blur(50px)'}}
+          src={imgSrc}
+          alt={props.post.title}
+        />
+      </div>
+    )
+  } else if (!!props.post.secure_media) {
     if (!!props.post.secure_media.reddit_video) {
       const thisID = guidGenerator();
 
@@ -163,7 +203,7 @@ function Embed(props) {
         />
       </div>
     )
-  } else if (props.post.url.indexOf(`jpg`) >= 0 || props.post.url.indexOf(`webm`) >= 0 || props.post.url.indexOf(`png`) >= 0 || (props.post.url.indexOf(`gif`) >= 0 && props.post.url.indexOf(`gifv`) < 0)) {
+  } else if (props.post.url.indexOf(`jpg`) >= 0 || props.post.url.indexOf(`jpeg`) >= 0 || props.post.url.indexOf(`webm`) >= 0 || props.post.url.indexOf(`png`) >= 0 || (props.post.url.indexOf(`gif`) >= 0 && props.post.url.indexOf(`gifv`) < 0)) {
     return (
       <div
         style={{
@@ -191,47 +231,6 @@ function Embed(props) {
         />
       </div>
     )
-  } else if (props.post.url.indexOf(`imgur.com`) >= 0 && props.post.url.indexOf('i.imgur.com') < 0) {
-    const sourceUrl = props.post.url;
-
-    let sourceUrlSplit = [];
-    if (sourceUrl.indexOf('?') >= 0) {
-      sourceUrlSplit = sourceUrl.split('?')[0].split('/');
-    } else {
-      sourceUrlSplit = sourceUrl.split('/');
-    }
-    const imgId = sourceUrlSplit[3];
-
-    const imgSrc = `https://i.imgur.com/${imgId}.jpg`;
-
-    return (
-      <div
-        style={{
-          width: window.innerWidth,
-          maxWidth: `100%`,
-        }}
-        className={`
-          relative
-          flex
-          items-start
-          justify-center
-          bg-black
-          overflow-hidden
-        `}
-      >
-        <img
-          className={`
-            object-contain
-            w-full
-            h-full
-          `}
-          // style={{filter: 'blur(50px)'}}
-          src={imgSrc}
-          alt={props.post.title}
-        />
-      </div>
-    )
-
   } else if (props.post.is_self && !!props.post.selftext_html) {
     return (
       <div
