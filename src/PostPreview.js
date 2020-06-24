@@ -297,8 +297,10 @@ class PostPreview extends React.Component {
         {this.state.showPostContent &&
           <div
             className={`
+              relative
               -ml-2
               -mr-2
+              mt-2
               overflow-hidden
             `}
           >

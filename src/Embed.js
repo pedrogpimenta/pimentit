@@ -20,7 +20,7 @@ function Embed(props) {
       const sourceWidth = props.post.secure_media.reddit_video.width;
       const sourceHeight = props.post.secure_media.reddit_video.height;
 
-      const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < window.innerHeight ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
+      const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < (window.innerHeight - 200) ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
 
       const sourceUrl = props.post.secure_media.reddit_video.fallback_url;
 
@@ -61,15 +61,15 @@ function Embed(props) {
         <div
           style={{
             width: window.innerWidth,
+            height: videoHeight,
             maxWidth: `100%`,
-            maxHeight: window.innerHeight - 200,
+            // maxHeight: window.innerHeight - 200,
           }}
           className={`
             video-js--container
             flex
             items-center
             justify-center
-            mt-2
             bg-black
             overflow-hidden
           `}
@@ -102,7 +102,7 @@ function Embed(props) {
 
       // TODO: make videos not higher than screen
       finalWidth = viewportWidth;
-      finalHeight = parseInt((finalWidth * sourceHeight) / sourceWidth) > 0 ? parseInt((finalWidth * sourceHeight) / sourceWidth) : 'auto';
+      finalHeight = parseInt((finalWidth * sourceHeight) / sourceWidth) > 0 ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) < (window.innerHeight - 200) ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200 : 'auto';
 
       if (props.post.secure_media.type === `twitter.com`) {
         const script = document.createElement("script");
@@ -125,7 +125,6 @@ function Embed(props) {
             flex
             items-center
             justify-center
-            mt-2
             bg-black
             overflow-hidden
           `}
@@ -147,7 +146,6 @@ function Embed(props) {
           flex
           items-start
           justify-center
-          mt-2
           bg-black
           overflow-hidden
         `}
@@ -177,7 +175,6 @@ function Embed(props) {
           flex
           items-start
           justify-center
-          mt-2
           bg-black
           overflow-hidden
         `}
@@ -218,7 +215,6 @@ function Embed(props) {
           flex
           items-start
           justify-center
-          mt-2
           bg-black
           overflow-hidden
         `}
