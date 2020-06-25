@@ -196,6 +196,8 @@ class PostPreview extends React.Component {
 
   render() {
     const post = this.props.post;
+    console.log(post.url.indexOf(`${post.subreddit}/comments/`), post.url)
+    const postUrl = post.url.indexOf(`${post.subreddit}/comments/`) >= 0 ? post.url.replace('//www.reddit.com/', `//reddit.pimenta.co/`) : post.url;
     const imagePositionClasses = this.props.imageOnLeft ? `mr-2 order-1` : `ml-2 order-3`;
 
     moment.locale('en', {
@@ -260,7 +262,7 @@ class PostPreview extends React.Component {
           >
             <a 
               className={`inline-block`}
-              href={post.url}
+              href={postUrl}
             >
               {post.title}
             </a>
