@@ -155,7 +155,7 @@ class PostPreview extends React.Component {
           </div>
         </div>
       )
-    } else if (post.is_self && post.thumbnail === `self`) {
+    } else if (post.is_self && post.thumbnail === `self` && !post.selftext) {
       return (
         <div
           className={`
@@ -186,6 +186,44 @@ class PostPreview extends React.Component {
               w-4
               h-4
             `}>
+              <TextIcon fill={`white`} />
+            </div>
+          </div>
+        </div>
+      )
+    } else if (post.is_self && post.thumbnail === `self`) {
+      return (
+        <div
+          className={`
+            flex-shrink-0
+            w-12
+            h-12
+            mt-1
+            bg-black
+            rounded
+            overflow-hidden
+            ${imagePositionClasses}
+          `}
+        >
+          <div
+            className={`
+              flex
+              w-full
+              h-full
+              items-center
+              justify-center
+              text-xs
+              text-gray-500
+            `}
+            style={{position: 'relative', top: '-1px'}}
+            onClick={() => this.handleThumbClick()}
+          >
+            <div className={`
+              flex
+              px-1
+            `}>
+              <TextIcon fill={`white`} />
+              <TextIcon fill={`white`} />
               <TextIcon fill={`white`} />
             </div>
           </div>
