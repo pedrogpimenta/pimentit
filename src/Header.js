@@ -135,7 +135,6 @@ function Header(props) {
         <ImagePositionButton
           onClick={() => props.handleImagePositionChange()}
           imageOnLeft={props.imageOnLeft}
-          fill={iconFill}
         />
       </div>
       {/* <div className={`
