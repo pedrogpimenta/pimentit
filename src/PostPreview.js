@@ -302,7 +302,6 @@ class PostPreview extends React.Component {
               relative
               -ml-2
               -mr-2
-              mt-2
               overflow-hidden
             `}
           >

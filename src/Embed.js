@@ -38,6 +38,7 @@ function Embed(props) {
           items-start
           justify-center
           bg-black
+          my-2
           overflow-hidden
         `}
       >
@@ -111,6 +112,7 @@ function Embed(props) {
             items-center
             justify-center
             bg-black
+            my-2
             overflow-hidden
           `}
         >
@@ -166,6 +168,7 @@ function Embed(props) {
             items-center
             justify-center
             bg-black
+            my-2
             overflow-hidden
           `}
           dangerouslySetInnerHTML={{__html: htmlEntities(props.post.secure_media.oembed.html)}}
@@ -187,6 +190,7 @@ function Embed(props) {
           items-start
           justify-center
           bg-black
+          my-2
           overflow-hidden
         `}
       >
@@ -222,6 +226,7 @@ function Embed(props) {
           items-start
           justify-center
           bg-black
+          my-2
           overflow-hidden
         `}
       >
