@@ -105,6 +105,7 @@ class RedditContent extends React.Component {
 
   componentDidUpdate(prevProps) {
     if ((this.props.match.params.subreddit !== prevProps.match.params.subreddit) || (this.props.location.search !== prevProps.location.search)) {
+      this.setState({showAllPostsContent: false})
       this.fetchData();
     }
   }
