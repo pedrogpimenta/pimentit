@@ -269,6 +269,7 @@ class PostPreview extends React.Component {
           border-solid
           border-gray-400
           bg-white
+          dark:bg-black
           ${this.props.classes}
         `}
       >
