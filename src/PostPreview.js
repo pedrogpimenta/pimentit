@@ -294,6 +294,7 @@ class PostPreview extends React.Component {
           <div
             className={`
               flex-grow
+              dark:text-white
               font-semibold
               leading-snug
               order-2
