@@ -589,8 +589,13 @@ iframe {
 }
 
 .video-js--container > div,
-.video-js {
+.video-js--container > div > .video-js {
   max-width: 100%;
+}
+
+.video-js .video-js {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .post-preview a,
