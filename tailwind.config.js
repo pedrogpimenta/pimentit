@@ -2,7 +2,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#FF4500',
+        primary: 'var(--color-primary)',
+        background: 'var(--color-background)',
+        backgroundSoft: 'var(--color-background--soft)'
+        foreground: 'var(--color-foreground)',
+        foregroundSoft: 'var(--color-foreground--soft)',
+        
       },
     },
   },
