@@ -44,7 +44,7 @@ function Header(props) {
       bg-white
       border-b-2
       border-solid
-      border-gray-400
+      border-background
       h-10
       p-2
       font-semibold
@@ -111,12 +111,12 @@ function Header(props) {
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={`black`}
+            fill={`foreground`}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={`black`}
+            fill={`foreground`}
           />
         }
       </div>
