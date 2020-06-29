@@ -34,8 +34,6 @@ function Header(props) {
   const handleOnChange = (selectedOption) => {
     history.push(`/r/${selectedOption.value}`)
   };
-  
-  const colorForeground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground');
 
   return(
     <div className={`
@@ -114,12 +112,12 @@ function Header(props) {
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={colorForeground}
+            fill={props.themeColors.foreground}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={colorForeground}
+            fill={props.themeColors.foreground}
           />
         }
       </div>
@@ -133,12 +131,12 @@ function Header(props) {
       >
         {props.themeDark &&
           <SunIcon
-            fill={colorForeground}
+            fill={props.themeColors.foreground}
           />
         }
         {!props.themeDark &&
           <MoonIcon
-            fill={colorForeground}
+            fill={props.themeColors.foreground}
           />
         }
       </div>
