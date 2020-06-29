@@ -10,10 +10,10 @@ import CommentsIcon from './imageComponents/CommentsIcon';
 import RedditIcon from './imageComponents/RedditIcon';
 import Embed from './Embed';
 
-//const colorForeground = getComputedStyle(document.getElementsByTagName('main')[0]).getPropertyValue('--color-foreground');
-const colorForegroundSoft = getComputedStyle(document.getElementsByTagName('main')[0]).getPropertyValue('--color-foreground--soft');
-const colorBackground = getComputedStyle(document.getElementsByTagName('main')[0]).getPropertyValue('--color-background');
-//const colorBackgroundSoft = getComputedStyle(document.getElementsByTagName('main')[0]).getPropertyValue('--color-background--soft');
+//const colorForeground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground');
+const colorForegroundSoft = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground--soft');
+const colorBackground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background');
+//const colorBackgroundSoft = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background--soft');
 
 class PostPreview extends React.Component {
   constructor() {
