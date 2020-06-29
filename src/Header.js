@@ -42,10 +42,10 @@ function Header(props) {
       items-center
       z-30
       w-full
-      bg-white
+      bg-background
       border-b-2
       border-solid
-      border-foregroundSoft
+      border-backgroundSoft
       h-10
       p-2
       font-semibold
