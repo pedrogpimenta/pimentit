@@ -127,7 +127,7 @@ class RedditContent extends React.Component {
 
   render() {
     return (
-      <main className={this.state.themeDark ? 'theme--dark' : ''}>
+      <>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
@@ -187,7 +187,7 @@ class RedditContent extends React.Component {
             />
           </>
         }
-      </main>
+      </>
     )
   }
 }
