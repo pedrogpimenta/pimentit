@@ -7,7 +7,6 @@ import CollapseIcon from './imageComponents/CollapseIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
 
-
 function Header(props) {
   const options = [
     { value: 'all', label: 'all' },
@@ -33,6 +32,8 @@ function Header(props) {
   const handleOnChange = (selectedOption) => {
     history.push(`/r/${selectedOption.value}`)
   };
+  
+  const colorForeground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground');
 
   return(
     <div className={`
@@ -44,7 +45,7 @@ function Header(props) {
       bg-white
       border-b-2
       border-solid
-      border-background
+      border-foregroundSoft
       h-10
       p-2
       font-semibold
@@ -111,12 +112,12 @@ function Header(props) {
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={`foreground`}
+            fill={colorForeground}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={`foreground`}
+            fill={colorForeground}
           />
         }
       </div>
