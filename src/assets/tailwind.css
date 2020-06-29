@@ -1,4 +1,4 @@
-main {
+body {
   --color-primary: #FF4500;
   --color-background: white;
   --color-background--soft: lightgrey;
@@ -6,7 +6,7 @@ main {
   --color-foreground--soft: grey;
 }
 
-main.theme--dark {
+body.theme--dark {
   --color-primary: #FF4500;
   --color-background: black;
   --color-background--soft: grey;
