@@ -1,4 +1,4 @@
-:root {
+body {
   --color-primary: #FF4500;
   --color-background: white;
   --color-backgroundSoft: lightgrey;
@@ -6,14 +6,12 @@
   --color-foregroundSoft: grey;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #FF4500;
-    --color-background: black;
-    --color-backgroundSoft: grey;
-    --color-foreground: white;
-    --color-foregroundSoft: lightgrey;
-  }
+body.theme--dark {
+  --color-primary: #FF4500;
+  --color-background: black;
+  --color-backgroundSoft: grey;
+  --color-foreground: white;
+  --color-foregroundSoft: lightgrey;
 }
 
 @tailwind base;
