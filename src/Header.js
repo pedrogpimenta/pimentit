@@ -35,7 +35,7 @@ function Header(props) {
     history.push(`/r/${selectedOption.value}`)
   };
   
-  const colorForeground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground');
+  const colorForeground = getComputedStyle(document.getElementsByTagName('main')[0]).getPropertyValue('--color-foreground');
 
   return(
     <div className={`
