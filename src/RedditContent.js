@@ -23,6 +23,7 @@ class RedditContent extends React.Component {
       count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
       showAllPostsContent: false,
+      themeDark: false, 
     }
   }
 
@@ -114,6 +115,11 @@ class RedditContent extends React.Component {
     localStorage.setItem('imageOnLeft', !this.state.imageOnLeft);
     this.setState({imageOnLeft: !this.state.imageOnLeft})
   }
+  
+  handleChangeTheme() {
+    localStorage.setItem('themeDark', !this.state.themeDark);
+    this.setState({themeDark: !this.state.themeDark})
+  }
 
   handleShowAllPostsContent() {
     this.setState({showAllPostsContent: !this.state.showAllPostsContent})
@@ -121,13 +127,15 @@ class RedditContent extends React.Component {
 
   render() {
     return (
-      <>
+      <main className={this.state.themeDark ? 'theme--dark' : ''}>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
+          handleChangeTheme={() => this.handleChangeTheme()}
           showAllPostsContent={this.state.showAllPostsContent}
           imageOnLeft={this.state.imageOnLeft}
+          themeDark={this.state.themeDark}
         />
         {this.state.isLoading &&
           <div className={`
@@ -179,7 +187,7 @@ class RedditContent extends React.Component {
             />
           </>
         }
-      </>
+      </main>
     )
   }
 }
