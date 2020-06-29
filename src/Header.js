@@ -130,12 +130,12 @@ function Header(props) {
         `}
         onClick={() => props.handleChangeTheme()}
       >
-        {props.themeNight &&
+        {props.themeDark &&
           <SunIcon
             fill={colorForeground}
           />
         }
-        {!props.themeNight &&
+        {!props.themeDark &&
           <MoonIcon
             fill={colorForeground}
           />
