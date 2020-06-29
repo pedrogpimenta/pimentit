@@ -4,6 +4,7 @@ import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
 import CollapseIcon from './imageComponents/CollapseIcon';
 import MoonIcon from './imageComponents/MoonIcon';
+import SunIcon from './imageComponents/SunIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
