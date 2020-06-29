@@ -10,6 +10,11 @@ import CommentsIcon from './imageComponents/CommentsIcon';
 import RedditIcon from './imageComponents/RedditIcon';
 import Embed from './Embed';
 
+const colorForeground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground');
+const colorForegroundSoft = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foregroundSoft');
+const colorBackground = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background');
+const colorBackgroundSoft = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-backgroundSoft');
+
 class PostPreview extends React.Component {
   constructor() {
     super();
@@ -48,7 +53,7 @@ class PostPreview extends React.Component {
           <div className={`
             w-full
             h-full
-            bg-black
+            bg-background
             rounded
             overflow-hidden
           `}
@@ -78,9 +83,9 @@ class PostPreview extends React.Component {
                 absolute
                 bottom-0
                 right-0
-                bg-white
+                bg-foreground
                 border-2
-                border-black
+                border-foreground
                 rounded-full
               `}
               style={{
@@ -101,9 +106,9 @@ class PostPreview extends React.Component {
                 absolute
                 bottom-0
                 right-0
-                bg-white
+                bg-background
                 border-2
-                border-black
+                border-background
                 rounded-full
               `}
               style={{
@@ -128,7 +133,7 @@ class PostPreview extends React.Component {
             w-12
             h-12
             mt-1
-            bg-black
+            bg-foreground
             rounded
             overflow-hidden
             ${imagePositionClasses}
@@ -142,7 +147,7 @@ class PostPreview extends React.Component {
               items-center
               justify-center
               text-xs
-              text-gray-500
+              text-foregroundSoft
             `}
             style={{position: 'relative', top: '-1px'}}
           >
@@ -150,7 +155,7 @@ class PostPreview extends React.Component {
               w-4
               h-4
             `}>
-              <LinkIcon fill={`white`} />
+              <LinkIcon fill={colorBackground} />
             </div>
           </div>
         </div>
@@ -163,7 +168,7 @@ class PostPreview extends React.Component {
             w-12
             h-12
             mt-1
-            bg-black
+            bg-foreground
             rounded
             overflow-hidden
             ${imagePositionClasses}
@@ -177,7 +182,7 @@ class PostPreview extends React.Component {
               items-center
               justify-center
               text-xs
-              text-gray-500
+              text-foregroundSoft
             `}
             style={{position: 'relative', top: '-1px'}}
             onClick={() => this.handleThumbClick()}
@@ -186,7 +191,7 @@ class PostPreview extends React.Component {
               w-4
               h-4
             `}>
-              <TextIcon fill={`white`} />
+              <TextIcon fill={colorBackground} />
             </div>
           </div>
         </div>
@@ -199,7 +204,7 @@ class PostPreview extends React.Component {
             w-12
             h-12
             mt-1
-            bg-black
+            bg-foreground
             rounded
             overflow-hidden
             ${imagePositionClasses}
@@ -213,7 +218,7 @@ class PostPreview extends React.Component {
               items-center
               justify-center
               text-xs
-              text-gray-500
+              text-foregroundSoft
             `}
             style={{position: 'relative', top: '-1px'}}
             onClick={() => this.handleThumbClick()}
@@ -222,9 +227,9 @@ class PostPreview extends React.Component {
               flex
               px-1
             `}>
-              <TextIcon fill={`white`} />
-              <TextIcon fill={`white`} />
-              <TextIcon fill={`white`} />
+              <TextIcon fill={colorBackground} />
+              <TextIcon fill={colorBackground} />
+              <TextIcon fill={colorBackground} />
             </div>
           </div>
         </div>
@@ -267,14 +272,14 @@ class PostPreview extends React.Component {
           px-2
           border-b-2 last:border-0
           border-solid
-          border-gray-400
-          bg-white
+          border-backgroundSoft
+          bg-background
           ${this.props.classes}
         `}
       >
         <div
           className={`
-            text-gray-500
+            text-foregroundSoft
             text-sm
             whitespace-no-wrap
             pb-1
@@ -310,7 +315,7 @@ class PostPreview extends React.Component {
           className={`
             flex
             items-center
-            text-gray-500
+            text-foregroundSoft
             text-sm
             whitespace-no-wrap
             pt-1
@@ -319,9 +324,9 @@ class PostPreview extends React.Component {
           `}
         >
           <div>
-            {post.score} <PointsIcon fill={`#a0aec0`}/>
+            {post.score} <PointsIcon fill={colorForegroundSoft}/>
           </div>
-          <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
+          <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={colorForegroundSoft}/></Link>
           <div className={`
             flex-grow
             text-right
@@ -330,7 +335,7 @@ class PostPreview extends React.Component {
               className={`ml-2`}
               href={`//reddit.com/r/${post.subreddit}/comments/${post.id}`}
             >
-              <RedditIcon fill={`#a0aec0`}/>
+              <RedditIcon fill={colorForegroundSoft}/>
             </a>
           </div>
         </div>
