@@ -158,6 +158,7 @@ class RedditContent extends React.Component {
           showAllPostsContent={this.state.showAllPostsContent}
           imageOnLeft={this.state.imageOnLeft}
           themeDark={this.state.themeDark}
+          themeColors={this.state.themeColors}
         />
         {this.state.isLoading &&
           <div className={`
@@ -196,6 +197,7 @@ class RedditContent extends React.Component {
                       post={post.data}
                       imageOnLeft={this.state.imageOnLeft}
                       showPostContent={this.state.showAllPostsContent}
+                      themeColors={this.state.themeColors}
                     />
                   )
                 })}
