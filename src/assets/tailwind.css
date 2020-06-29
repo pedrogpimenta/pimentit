@@ -1,17 +1,17 @@
 body {
   --color-primary: #FF4500;
   --color-background: white;
-  --color-backgroundSoft: lightgrey;
+  --color-background--soft: lightgrey;
   --color-foreground: black;
-  --color-foregroundSoft: grey;
+  --color-foreground--soft: grey;
 }
 
 body.theme--dark {
   --color-primary: #FF4500;
   --color-background: black;
-  --color-backgroundSoft: grey;
+  --color-background--soft: grey;
   --color-foreground: white;
-  --color-foregroundSoft: lightgrey;
+  --color-foreground--soft: lightgrey;
 }
 
 @tailwind base;
