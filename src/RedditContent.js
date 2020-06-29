@@ -120,7 +120,7 @@ class RedditContent extends React.Component {
       this.fetchData();
     }
     
-    if (provProps.themeColors !== this.state.themeColors) {
+    if (prevProps.themeDark !== this.state.themeDark) {
       this.setState({
         themeColors: {
           foreground: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground'),
