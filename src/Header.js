@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
 import CollapseIcon from './imageComponents/CollapseIcon';
+import MoonIcon from './imageComponents/MoonIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
@@ -117,6 +118,25 @@ function Header(props) {
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
+            fill={colorForeground}
+          />
+        }
+      </div>
+      <div
+        className={`
+          w-6
+          h-6
+          mr-2
+        `}
+        onClick={() => props.handleChangeTheme()}
+      >
+        {props.themeNight &&
+          <SunIcon
+            fill={colorForeground}
+          />
+        }
+        {!props.themeNight &&
+          <MoonIcon
             fill={colorForeground}
           />
         }
