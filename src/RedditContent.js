@@ -10,6 +10,13 @@ import SubredditError from './SubredditError.js';
 const DEFAULT_SUBREDDIT = 'all';
 const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
 
+const THEME_COLORS = {
+  foreground: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground') || `black`,
+  foregroundSoft: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground--soft') || `black`,
+  background: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background') || `white`,
+  backgroundSoft: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background--soft') || `white`,
+};
+
 class RedditContent extends React.Component {
   constructor() {
     super();
@@ -23,7 +30,8 @@ class RedditContent extends React.Component {
       count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
       showAllPostsContent: false,
-      themeDark: false, 
+      themeDark: false,
+      themeColors: THEME_COLORS,
     }
   }
 
@@ -99,6 +107,8 @@ class RedditContent extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.match.params.subreddit !== prevState.subreddit) {
       return { subreddit: nextProps.match.params.subreddit };
+    } else if (nextProps.themeDark !== prevState.themeDark) {
+      return { themeDark: nextProps.themeDark };
     } else {
       return null;
     }
@@ -109,7 +119,19 @@ class RedditContent extends React.Component {
       this.setState({showAllPostsContent: false})
       this.fetchData();
     }
+    
+    if (provProps.themeColors !== this.state.themeColors) {
+      this.setState({
+        themeColors: {
+          foreground: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground'),
+          foregroundSoft: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-foreground--soft'),
+          background: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background'),
+          backgroundSoft: getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--color-background--soft'),
+        }
+      })
+    }
   }
+
 
   handleImagePositionChange() {
     localStorage.setItem('imageOnLeft', !this.state.imageOnLeft);
