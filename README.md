@@ -13,7 +13,7 @@ A computer with [NodeJS](https://nodejs.org/) installed and a code editor.
 * Clone this repo (or download the files if you don't have [Git](https://git-scm.com/))
 
   ```
-  git clone git@github.com:pedrogpimenta/pimenta.co.git
+  git clone git@github.com:pedrogpimenta/pimentit.git
   ```
 
 * Install dependencies
