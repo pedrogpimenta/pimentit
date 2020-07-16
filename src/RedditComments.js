@@ -1,16 +1,15 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
-import qs from 'query-string';
 
 import PostPreview from './PostPreview.js';
-import Pagination from './Pagination.js';
+import Comment from './Comment.js';
 import Header from './Header.js';
 import SubredditError from './SubredditError.js';
 
 const DEFAULT_SUBREDDIT = 'all';
 const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
 
-class RedditContent extends React.Component {
+class RedditComments extends React.Component {
   constructor() {
     super();
 
@@ -19,34 +18,22 @@ class RedditContent extends React.Component {
       subredditError: false,
       error: '',
       errorMessage: '',
-      posts: [],
-      count: 0,
+      post: {},
+      comments: [],
+      // count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
-      showAllPostsContent: false,
     }
   }
 
   fetchData(direction) {
     const subreddit = this.props.match.params.subreddit || DEFAULT_SUBREDDIT;
-    const parsedQuery = qs.parse(this.props.location.search)
-    const count = parsedQuery.count || this.state.count;
-    const after = parsedQuery.after;
-    const before = parsedQuery.before;
+    const id = this.props.match.params.id;
 
-    let fetchUrl = `https://www.reddit.com/r/${subreddit}/hot/.json?limit=25`;
-    
     this.setState({
-      count: count,
       isLoading: true,
     });
-
-    if (!!after) {
-      fetchUrl += `&count=${count}&after=${after}`;
-    } else if (!!before) {
-      fetchUrl += `&count=${count}&before=${before}`;
-    }
-
-    fetch(fetchUrl)
+    
+    fetch(`https://www.reddit.com/r/${subreddit}/comments/${id}/hot/.json?limit=25`)
       .then(response => response.json())
       .then(data => {
         if (data.error) {
@@ -55,20 +42,23 @@ class RedditContent extends React.Component {
             subredditError: true,
             error: data.error,
             errorMessage: data.message,
-            posts: [],
+            post: {},
+            comments: [],
           })
-        } else if (!data.data.children) {
+        } else if (!data[0].data.children) {
           this.setState({
             isLoading: false,
             subredditError: true,
             errorMessage: `r/${subreddit}: there doesn't seem to be anything here.`,
-            posts: [],
+            post: {},
+            comments: [],
           })
         } else {
           this.setState({
             isLoading: false,
             subredditError: false,
-            posts: data.data.children,
+            post: data[0].data.children[0],
+            comments: data[1].data.children,
           });
         }
       })
@@ -78,7 +68,8 @@ class RedditContent extends React.Component {
             isLoading: false,
             subredditError: true,
             errorMessage: `NetworkError when attempting to fetch resource. This probably means you're blocking this website from accessing reddit.com or the subreddit doesn't exist.`,
-            posts: [],
+            post: {},
+            comments: [],
           });
         } else {
           this.setState({
@@ -86,6 +77,7 @@ class RedditContent extends React.Component {
             subredditError: true,
             errorMessage: `r/${subreddit}: there doesn't seem to be anything here`,
             posts: [],
+            comments: [],
           });
         }
       })
@@ -96,27 +88,27 @@ class RedditContent extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.match.params.subreddit !== prevState.subreddit) {
-      return { subreddit: nextProps.match.params.subreddit };
+    if (nextProps.match.params.id !== prevState.id) {
+      return { id: nextProps.match.params.id };
     } else {
       return null;
     }
   }
 
   componentDidUpdate(prevProps) {
-    if ((this.props.match.params.subreddit !== prevProps.match.params.subreddit) || (this.props.location.search !== prevProps.location.search)) {
-      this.setState({showAllPostsContent: false})
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+
       this.fetchData();
     }
+  }
+
+  handleMorePosts(direction) {
+    this.fetchData(direction);
   }
 
   handleImagePositionChange() {
     localStorage.setItem('imageOnLeft', !this.state.imageOnLeft);
     this.setState({imageOnLeft: !this.state.imageOnLeft})
-  }
-
-  handleShowAllPostsContent() {
-    this.setState({showAllPostsContent: !this.state.showAllPostsContent})
   }
 
   render() {
@@ -125,8 +117,6 @@ class RedditContent extends React.Component {
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
-          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
-          showAllPostsContent={this.state.showAllPostsContent}
           imageOnLeft={this.state.imageOnLeft}
         />
         {this.state.isLoading &&
@@ -158,25 +148,39 @@ class RedditContent extends React.Component {
                   list-none
                 `}
               >
-                {this.state.posts.map(post => {
-                  if (post.data.stickied) return false
+                <PostPreview
+                  key={this.state.post.data.name}
+                  post={this.state.post.data}
+                  imageOnLeft={this.state.imageOnLeft}
+                  classes={`
+                    m-2
+                    border-b
+                    border
+                    border-solid
+                    border-gray-400
+                    rounded
+                  `}
+                />
+              </ul>
+            </div>
+            <div
+              className={`
+                flex
+                max-w-full
+                py-2
+              `}
+            >
+              <ul className={`
+                max-w-full
+                pl-2
+              `}>
+                {this.state.comments.map(comment => {
                   return (
-                    <PostPreview
-                      key={post.data.name}
-                      post={post.data}
-                      imageOnLeft={this.state.imageOnLeft}
-                      showPostContent={this.state.showAllPostsContent}
-                    />
+                    <Comment key={comment.data.id} comment={comment}/>
                   )
                 })}
               </ul>
             </div>
-            <Pagination
-              subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
-              count={this.state.count}
-              lastPostName={this.state.posts[this.state.posts?.length - 1]?.data?.name}
-              firstPostName={this.state.posts[0]?.data?.name}
-            />
           </>
         }
       </>
@@ -184,4 +188,4 @@ class RedditContent extends React.Component {
   }
 }
 
-export default withRouter(RedditContent);
+export default withRouter(RedditComments);
