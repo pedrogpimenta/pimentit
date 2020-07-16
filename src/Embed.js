@@ -63,28 +63,7 @@ function Embed(props) {
 
       const videoHeight = parseInt((window.innerWidth * sourceHeight) / sourceWidth) < (window.innerHeight - 200) ? parseInt((window.innerWidth * sourceHeight) / sourceWidth) : window.innerHeight - 200;
 
-      const sourceUrl = props.post.secure_media.reddit_video.fallback_url;
-
-      let sourceUrlSplit = [];
-      if (sourceUrl.indexOf('?') >= 0) {
-        sourceUrlSplit = sourceUrl.split('?')[0].split('/');
-      } else {
-        sourceUrlSplit = sourceUrl.split('/');
-      }
-      const dashPartIndex = sourceUrlSplit.findIndex(part => part.indexOf('DASH') >= 0);
-      sourceUrlSplit[dashPartIndex] = 'audio'; 
-
-      const audioSrc = sourceUrlSplit.join('/');
-
-      const audioJsOptions = {
-        autoplay: true,
-        controls: true,
-        muted: true,
-        sources: [{
-          src: audioSrc,
-          type: 'audio/mp3',
-        }]
-      }
+      const sourceUrl = `https://cors-anywhere.herokuapp.com/${props.post.secure_media.reddit_video.dash_url}`;
 
       const videoJsOptions = {
         autoplay: true,
@@ -94,7 +73,7 @@ function Embed(props) {
         height: videoHeight,
         sources: [{
           src: sourceUrl,
-          type: 'video/mp4',
+          type: 'application/dash+xml',
         }]
       }
 
@@ -116,24 +95,13 @@ function Embed(props) {
             overflow-hidden
           `}
         >
-          <div
-            style={{
-              width: 0,
-              height: 0,
-              overflow: `hidden`,
-            }}
-          >
-            <VideoPlayer 
-              identifier={`audio-js-${thisID}`}
-              { ...audioJsOptions }
-            />
-          </div>
           <VideoPlayer 
             identifier={thisID}
             { ...videoJsOptions }
           />
         </div>
       )
+
     } else if (!!props.post.secure_media.oembed) {
       const sourceWidth = props.post.secure_media.oembed.width;
       const sourceHeight = props.post.secure_media.oembed.height;
