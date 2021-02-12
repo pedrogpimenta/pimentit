@@ -4,6 +4,9 @@ module.exports = {
       colors: {
         primary: '#FF4500',
       },
+      screens: {
+        'dark': {'raw': '(prefers-color-scheme: dark)'},
+      }
     },
   },
   variants: {

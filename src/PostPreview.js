@@ -269,6 +269,7 @@ class PostPreview extends React.Component {
           border-solid
           border-gray-400
           bg-white
+          dark:bg-black
           ${this.props.classes}
         `}
       >
@@ -293,6 +294,7 @@ class PostPreview extends React.Component {
           <div
             className={`
               flex-grow
+              dark:text-white
               font-semibold
               leading-snug
               order-2

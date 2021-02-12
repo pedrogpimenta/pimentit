@@ -17,6 +17,8 @@ function Header(props) {
 
   const dropdownHasCurrentSubreddit = options.findIndex(subs => subs.value === props.subreddit);
 
+  const iconFill = window.matchMedia('(prefers-color-scheme: dark)').matches ? `white` : `black`;
+
   if (!!dropdownHasCurrentSubreddit) {
     options.splice(dropdownHasCurrentSubreddit, 1);
     options.unshift({ value: props.subreddit, label: props.subreddit});
@@ -42,9 +44,12 @@ function Header(props) {
       z-30
       w-full
       bg-white
+      dark:bg-black
+      dark:text-white
       border-b-2
       border-solid
       border-gray-400
+      dark:border-gray-600
       h-10
       p-2
       font-semibold
@@ -111,12 +116,12 @@ function Header(props) {
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={`black`}
+            fill={iconFill}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={`black`}
+            fill={iconFill}
           />
         }
       </div>
