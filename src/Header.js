@@ -3,10 +3,11 @@ import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
 import CollapseIcon from './imageComponents/CollapseIcon';
+import MoonIcon from './imageComponents/MoonIcon';
+import SunIcon from './imageComponents/SunIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
-
 
 function Header(props) {
   const options = [
@@ -41,10 +42,10 @@ function Header(props) {
       items-center
       z-30
       w-full
-      bg-white
+      bg-background
       border-b-2
       border-solid
-      border-gray-400
+      border-backgroundSoft
       h-10
       p-2
       font-semibold
@@ -111,12 +112,31 @@ function Header(props) {
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={`black`}
+            fill={props.themeColors.foreground}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={`black`}
+            fill={props.themeColors.foreground}
+          />
+        }
+      </div>
+      <div
+        className={`
+          w-6
+          h-6
+          mr-2
+        `}
+        onClick={() => props.handleChangeTheme()}
+      >
+        {props.themeDark &&
+          <SunIcon
+            fill={props.themeColors.foreground}
+          />
+        }
+        {!props.themeDark &&
+          <MoonIcon
+            fill={props.themeColors.foreground}
           />
         }
       </div>

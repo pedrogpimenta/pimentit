@@ -9,7 +9,6 @@ function RedditLogo() {
       fill="none"
       viewBox="0 0 16 16"
     >
-      <path fill="#fff" d="M0 0H16V16H0z"></path>
       <path fill="#FF4500" d="M16 8A8 8 0 110 8a8 8 0 0116 0z"></path>
       <path
         fill="#fff"

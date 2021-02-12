@@ -7,10 +7,9 @@ function ImagePositionButton(props) {
         rounded: 'yes'
       }}
       className={`
-        bg-red
         border-2
         border-solid
-        border-black
+        border-foreground
         rounded-full
         w-6
         h-4
@@ -30,7 +29,7 @@ function ImagePositionButton(props) {
           w-4
           h-4
           rounded-full
-          bg-black
+          bg-foreground
         `}
       ></div>
     </div>
