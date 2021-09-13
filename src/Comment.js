@@ -55,6 +55,7 @@ class Comment extends React.Component {
             border-solid
             border-gray-400
             bg-white
+            dark:bg-black
           `}
           onClick={() => this.handleToggleClick()}
         >
@@ -84,6 +85,7 @@ class Comment extends React.Component {
                 pr-4
                 break-words
                 overflow-x-auto
+                dark:text-white
               `}
               dangerouslySetInnerHTML={{__html: htmlEntities(comment.body_html)}}
             >

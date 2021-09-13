@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
 import CollapseIcon from './imageComponents/CollapseIcon';
+import MoonIcon from './imageComponents/MoonIcon';
+import SunIcon from './imageComponents/SunIcon';
 // import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
@@ -42,6 +44,7 @@ function Header(props) {
       z-30
       w-full
       bg-white
+      dark:bg-black
       border-b-2
       border-solid
       border-gray-400
@@ -107,16 +110,35 @@ function Header(props) {
           h-6
           mr-2
         `}
+        onClick={() => props.handleDarkModeButton()}
+      >
+        {props.darkMode &&
+          <SunIcon
+            className={`text-black dark:text-white stroke-current`}
+          />
+        }
+        {!props.darkMode &&
+          <MoonIcon
+            className={`text-black dark:text-white stroke-current`}
+          />
+        }
+      </div>
+      <div
+        className={`
+          w-6
+          h-6
+          mr-2
+        `}
         onClick={() => props.handleShowAllPostsContent()}
       >
         {props.showAllPostsContent &&
           <CollapseIcon
-            fill={`black`}
+            className={`text-black dark:text-white fill-current`}
           />
         }
         {!props.showAllPostsContent &&
           <ExpandIcon
-            fill={`black`}
+            className={`text-black dark:text-white fill-current`}
           />
         }
       </div>
