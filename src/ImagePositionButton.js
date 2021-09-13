@@ -11,6 +11,7 @@ function ImagePositionButton(props) {
         border-2
         border-solid
         border-black
+        dark:border-white
         rounded-full
         w-6
         h-4
@@ -31,6 +32,7 @@ function ImagePositionButton(props) {
           h-4
           rounded-full
           bg-black
+          dark:bg-white
         `}
       ></div>
     </div>

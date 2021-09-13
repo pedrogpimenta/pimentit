@@ -8,6 +8,7 @@ import SubredditError from './SubredditError.js';
 
 const DEFAULT_SUBREDDIT = 'all';
 const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
+const DARK_MODE = localStorage.getItem('pimentitDarkMode') === 'false' ? false : true;
 
 class RedditComments extends React.Component {
   constructor() {
@@ -22,6 +23,7 @@ class RedditComments extends React.Component {
       comments: [],
       // count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
+      darkMode: DARK_MODE,
     }
   }
 
@@ -111,13 +113,20 @@ class RedditComments extends React.Component {
     this.setState({imageOnLeft: !this.state.imageOnLeft})
   }
 
+  handleDarkModeButton() {
+    localStorage.setItem('pimentitDarkMode', !this.state.darkMode);
+    this.setState({darkMode: !this.state.darkMode})
+  }
+
   render() {
     return (
-      <>
+      <div className={this.state.darkMode && 'dark'}>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
+          handleDarkModeButton={() => this.handleDarkModeButton()}
           imageOnLeft={this.state.imageOnLeft}
+          darkMode={this.state.darkMode}
         />
         {this.state.isLoading &&
           <div className={`
@@ -183,7 +192,7 @@ class RedditComments extends React.Component {
             </div>
           </>
         }
-      </>
+      </div>
     )
   }
 }

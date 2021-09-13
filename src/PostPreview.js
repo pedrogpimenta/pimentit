@@ -79,6 +79,8 @@ class PostPreview extends React.Component {
                 bottom-0
                 right-0
                 bg-white
+                dark:bg-black
+                dark:text-white
                 border-2
                 border-black
                 rounded-full
@@ -102,6 +104,8 @@ class PostPreview extends React.Component {
                 bottom-0
                 right-0
                 bg-white
+                dark:bg-black
+                dark:text-white
                 border-2
                 border-black
                 rounded-full
@@ -269,6 +273,8 @@ class PostPreview extends React.Component {
           border-solid
           border-gray-400
           bg-white
+          dark:bg-black
+          dark:text-white
           ${this.props.classes}
         `}
       >
@@ -296,6 +302,7 @@ class PostPreview extends React.Component {
               font-semibold
               leading-snug
               order-2
+            dark:text-white
             `}
           >
             <a 

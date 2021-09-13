@@ -1,5 +1,9 @@
 @tailwind base;
 
+.dark {
+  background-color: black;
+}
+
 svg {
   display: inline-block;
   vertical-align: top;

@@ -9,6 +9,7 @@ import SubredditError from './SubredditError.js';
 
 const DEFAULT_SUBREDDIT = 'all';
 const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
+const DARK_MODE = localStorage.getItem('pimentitDarkMode') === 'false' ? false : true;
 
 class RedditContent extends React.Component {
   constructor() {
@@ -23,6 +24,7 @@ class RedditContent extends React.Component {
       count: 0,
       imageOnLeft: IMAGE_ON_LEFT,
       showAllPostsContent: false,
+      darkMode: DARK_MODE,
     }
   }
 
@@ -119,15 +121,22 @@ class RedditContent extends React.Component {
     this.setState({showAllPostsContent: !this.state.showAllPostsContent})
   }
 
+  handleDarkModeButton() {
+    localStorage.setItem('pimentitDarkMode', !this.state.darkMode);
+    this.setState({darkMode: !this.state.darkMode})
+  }
+
   render() {
     return (
-      <>
+      <div className={this.state.darkMode && 'dark'}>
         <Header
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
+          handleDarkModeButton={() => this.handleDarkModeButton()}
           showAllPostsContent={this.state.showAllPostsContent}
           imageOnLeft={this.state.imageOnLeft}
+          darkMode={this.state.darkMode}
         />
         {this.state.isLoading &&
           <div className={`
@@ -136,6 +145,7 @@ class RedditContent extends React.Component {
             justify-center
             pt-20
             px-2
+            h-screen
             `}>
             <img
               className={`
@@ -179,7 +189,7 @@ class RedditContent extends React.Component {
             />
           </>
         }
-      </>
+      </div>
     )
   }
 }
