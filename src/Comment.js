@@ -99,7 +99,7 @@ class Comment extends React.Component {
             </div>
           </>
         }
-        {this.props.comment.kind === 'more' &&
+        {this.props.comment.kind === 'more' && this.props.parent &&
           <a href={`https://old.reddit.com${this.props.parent}`} className={`
             text-gray-500
             text-sm

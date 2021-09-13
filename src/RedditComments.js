@@ -176,7 +176,7 @@ class RedditComments extends React.Component {
               `}>
                 {this.state.comments.map(comment => {
                   return (
-                    <Comment key={comment.data.id} comment={comment}/>
+                    <Comment key={comment.data.id} comment={comment} parent={this.props.location.pathname} />
                   )
                 })}
               </ul>
