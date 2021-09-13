@@ -12,10 +12,10 @@ function Header(props) {
       if (direction) {
         if (direction === `next`) {
           fetchDirection = direction ? `&after=${props.lastPostName}` : ``;
-          fetchCount = `count=${props.count + 25}`;
+          fetchCount = `count=${parseInt(props.count) + 25}`;
         } else if (direction === `prev`) {
           fetchDirection = direction ? `&before=${props.firstPostName}` : ``;
-          fetchCount = `count=${props.count - 24}`;
+          fetchCount = `count=${parseInt(props.count) - 24}`;
         }
 
       }

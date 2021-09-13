@@ -83,6 +83,7 @@ class Comment extends React.Component {
                 flex
                 pr-4
                 break-words
+                overflow-x-auto
               `}
               dangerouslySetInnerHTML={{__html: htmlEntities(comment.body_html)}}
             >
@@ -91,7 +92,7 @@ class Comment extends React.Component {
               <ul>
                 {!!comment.replies && comment.replies.data.children.map(comment => {
                   return (
-                    <Reply key={comment.data.id} comment={comment}/>
+                    <Reply key={comment.data.id} comment={comment} parent={this.props.comment.data.permalink} />
                   )
                 })}
               </ul>
@@ -99,12 +100,12 @@ class Comment extends React.Component {
           </>
         }
         {this.props.comment.kind === 'more' &&
-          <div className={`
+          <a href={`https://old.reddit.com${this.props.parent}`} className={`
             text-gray-500
             text-sm
           `}>
-            load more (you wish)
-          </div>
+            load more in old.reddit
+          </a>
         }
       </li>
     )

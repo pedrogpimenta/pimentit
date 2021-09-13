@@ -191,7 +191,7 @@ class PostPreview extends React.Component {
           </div>
         </div>
       )
-    } else if (post.is_self && post.thumbnail === `self`) {
+    } else if (post.is_self && (post.thumbnail === `self` || post.selftext.length > 0)) {
       return (
         <div
           className={`
