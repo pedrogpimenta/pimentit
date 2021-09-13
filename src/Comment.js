@@ -83,6 +83,7 @@ class Comment extends React.Component {
                 flex
                 pr-4
                 break-words
+                overflow-x-auto
               `}
               dangerouslySetInnerHTML={{__html: htmlEntities(comment.body_html)}}
             >
