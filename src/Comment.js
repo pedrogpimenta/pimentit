@@ -69,7 +69,7 @@ class Comment extends React.Component {
               className={`
                 text-gray-500
                 text-sm
-                whitespace-no-wrap
+                whitespace-nowrap
                 pb-1
                 overflow-y-hidden
                 overflow-x-auto

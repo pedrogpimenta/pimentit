@@ -122,6 +122,7 @@ class RedditComments extends React.Component {
     return (
       <div className={this.state.darkMode && 'dark'}>
         <Header
+          at="RedditComments"
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleDarkModeButton={() => this.handleDarkModeButton()}

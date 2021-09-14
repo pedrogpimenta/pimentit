@@ -130,6 +130,7 @@ class RedditContent extends React.Component {
     return (
       <div className={this.state.darkMode && 'dark'}>
         <Header
+          at="RedditContent"
           subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleShowAllPostsContent={() => this.handleShowAllPostsContent()}

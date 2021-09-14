@@ -272,6 +272,7 @@ class PostPreview extends React.Component {
           border-b-2 last:border-0
           border-solid
           border-gray-400
+          dark:border-gray-700
           bg-white
           dark:bg-black
           dark:text-white
@@ -282,7 +283,7 @@ class PostPreview extends React.Component {
           className={`
             text-gray-500
             text-sm
-            whitespace-no-wrap
+            whitespace-nowrap
             pb-1
             overflow-y-hidden
             overflow-x-auto
@@ -319,7 +320,7 @@ class PostPreview extends React.Component {
             items-center
             text-gray-500
             text-sm
-            whitespace-no-wrap
+            whitespace-nowrap
             pt-1
             overflow-y-hidden
             overflow-x-auto

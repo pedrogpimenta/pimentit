@@ -48,6 +48,7 @@ function Header(props) {
       border-b-2
       border-solid
       border-gray-400
+      dark:border-gray-700
       h-10
       p-2
       font-semibold
@@ -123,25 +124,27 @@ function Header(props) {
           />
         }
       </div>
-      <div
-        className={`
-          w-6
-          h-6
-          mr-2
-        `}
-        onClick={() => props.handleShowAllPostsContent()}
-      >
-        {props.showAllPostsContent &&
-          <CollapseIcon
-            className={`text-black dark:text-white fill-current`}
-          />
-        }
-        {!props.showAllPostsContent &&
-          <ExpandIcon
-            className={`text-black dark:text-white fill-current`}
-          />
-        }
-      </div>
+      {props.at === 'RedditContent' &&
+        <div
+          className={`
+            w-6
+            h-6
+            mr-2
+          `}
+          onClick={() => props.handleShowAllPostsContent()}
+        >
+          {props.showAllPostsContent &&
+            <CollapseIcon
+              className={`text-black dark:text-white fill-current`}
+            />
+          }
+          {!props.showAllPostsContent &&
+            <ExpandIcon
+              className={`text-black dark:text-white fill-current`}
+            />
+          }
+        </div>
+      }
       <div className={`
         flex
         items-center

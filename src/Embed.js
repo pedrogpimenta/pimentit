@@ -47,6 +47,7 @@ function Embed(props) {
             object-contain
             w-full
             h-full
+            bg-red-500
           `}
           // style={{filter: 'blur(50px)'}}
           src={imgSrc}
@@ -207,7 +208,7 @@ function Embed(props) {
         />
       </div>
     )
-  } else if (props.post.url.indexOf(`jpg`) >= 0 || props.post.url.indexOf(`jpeg`) >= 0 || props.post.url.indexOf(`webm`) >= 0 || props.post.url.indexOf(`png`) >= 0 || (props.post.url.indexOf(`gif`) >= 0 && props.post.url.indexOf(`gifv`) < 0)) {
+  } else if (props.post.url.indexOf(`.jpg`) >= 0 || props.post.url.indexOf(`.jpeg`) >= 0 || props.post.url.indexOf(`.webm`) >= 0 || props.post.url.indexOf(`.png`) >= 0 || (props.post.url.indexOf(`.gif`) >= 0 && props.post.url.indexOf(`.gifv`) < 0)) {
     let postUrl = props.post.url;
 
     if (props.post.url.indexOf('preview.redd.it')) {
@@ -235,6 +236,7 @@ function Embed(props) {
             object-contain
             w-full
             h-full
+            bg-green-500
           `}
           // style={{filter: 'blur(50px)'}}
           src={postUrl}
