@@ -5,7 +5,6 @@ import ExpandIcon from './imageComponents/ExpandIcon';
 import CollapseIcon from './imageComponents/CollapseIcon';
 import MoonIcon from './imageComponents/MoonIcon';
 import SunIcon from './imageComponents/SunIcon';
-// import MenuIcon from './imageComponents/MenuIcon';
 import CreatableSelect from 'react-select/creatable';
 import ImagePositionButton from './ImagePositionButton';
 
@@ -77,22 +76,31 @@ function Header(props) {
               height: '30px',
               minHeight: '30px',
               overflow: 'hidden',
+              background: props.darkMode && 'black',
+              border: props.darkMode && '1px solid white',
             }),
             valueContainer: base => ({
               ...base,
               height: '30px',
               position: 'relative',
               top: '-3px',
+              color: 'red',
+            }),
+            singleValue: base => ({
+              ...base,
+              color: props.darkMode && 'white',
             }),
             input: base => ({
               ...base,
               height: '30px',
               position: 'relative',
               top: '-3px',
+              color: props.darkMode && 'white',
             }),
             indicatorsContainer: base => ({
               ...base,
               height: '28px',
+              color: 'blue',
             }),
             dropdownIndicator: base => ({
               ...base,
@@ -157,12 +165,6 @@ function Header(props) {
           imageOnLeft={props.imageOnLeft}
         />
       </div>
-      {/* <div className={`
-        w-6
-        h-6
-      `}>
-        <MenuIcon />
-      </div> */}
     </div>
   )
 }
