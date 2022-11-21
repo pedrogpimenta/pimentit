@@ -289,7 +289,7 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - {moment(post.created * 1000).fromNow(true)} - <a href={`//reddit.com/u/${post.author}`} target={`_blank`}>{`u/${post.author}`}</a>{post.link_flair_text && ` - [${post.link_flair_text}]`}
+          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - {moment(post.created * 1000).fromNow(true)} - <Link to={`/user/${post.author}`}>{`u/${post.author}`}</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
         </div>
         <div
           className={`

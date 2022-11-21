@@ -29,13 +29,16 @@ class RedditContent extends React.Component {
   }
 
   fetchData(direction) {
+    const type = this.props.type;
     const subreddit = this.props.match.params.subreddit || DEFAULT_SUBREDDIT;
     const parsedQuery = qs.parse(this.props.location.search)
     const count = parsedQuery.count || this.state.count;
     const after = parsedQuery.after;
     const before = parsedQuery.before;
 
-    let fetchUrl = `https://www.reddit.com/r/${subreddit}/hot/.json?limit=25`;
+    let fetchUrl = type === 'post' ?
+      `https://www.reddit.com/r/${subreddit}/hot/.json?limit=25` :
+      `https://www.reddit.com/user/${subreddit}/submitted/.json?sort=hot&limit=25`;
     
     this.setState({
       count: count,
