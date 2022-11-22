@@ -12,7 +12,7 @@ import ImagePositionButton from './ImagePositionButton';
 function Header(props) {
   const options = [
     { value: 'all', label: 'all' },
-    { value: 'popular', label: 'popular' },
+    { value: 'news', label: 'news' },
     { value: 'portugal', label: 'portugal' },
   ]
 
