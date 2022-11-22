@@ -15,13 +15,13 @@ function App() {
           <RedditComments />
         </Route>
         <Route path='/r/:subreddit'>
-          <RedditContent type="post"/>
+          <RedditContent type="subreddit"/>
         </Route>
         <Route path='/user/:subreddit'>
           <RedditContent type="user"/>
         </Route>
         <Route path='/'>
-          <RedditContent type="post"/>
+          <RedditContent type="subreddit"/>
         </Route>
       </Switch>
     </Router>
