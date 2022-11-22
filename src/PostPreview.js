@@ -333,7 +333,7 @@ class PostPreview extends React.Component {
           `}>
             <a
               className={`ml-2`}
-              href={`//reddit.com/r/${post.subreddit}/comments/${post.id}`}
+              href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
             >
               <RedditIcon fill={`#a0aec0`}/>
             </a>
