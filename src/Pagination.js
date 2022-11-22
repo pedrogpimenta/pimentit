@@ -4,7 +4,13 @@ import { useHistory } from "react-router-dom";
 function Header(props) {
   let history = useHistory();
 
-  const handleMorePosts = direction => {
+  const handleMorePosts = (e, direction) => {
+    e.preventDefault();
+
+    history.push(getPaginationUrl(direction));
+  };
+  
+  const getPaginationUrl = (direction) => {
     if (direction === `next` || direction === `prev`) {
       let fetchCount = ``;
       let fetchDirection = ``;
@@ -15,14 +21,14 @@ function Header(props) {
           fetchCount = `count=${parseInt(props.count) + 25}`;
         } else if (direction === `prev`) {
           fetchDirection = direction ? `&before=${props.firstPostName}` : ``;
-          fetchCount = `count=${parseInt(props.count) - 24}`;
+          fetchCount = `count=${parseInt(props.count) - 25}`;
         }
 
       }
 
-      history.push(`/r/${props.subreddit}/?${fetchCount}${fetchDirection}`);
+      return `/r/${props.subreddit}/?${fetchCount}${fetchDirection}`;
     }
-  };
+  }
 
   return(
     <div className={`
@@ -32,7 +38,8 @@ function Header(props) {
     `}
     style={{justifyContent: props.count >= 25 ? 'space-between' : 'flex-end'}}>
       {props.count >= 25 &&
-        <button
+        <a
+          href={`https://reddit.pimenta.co${getPaginationUrl('next')}`}
           className={`
             px-4
             pt-1
@@ -42,12 +49,13 @@ function Header(props) {
             font-semibold
             rounded
           `}
-          onClick={() => handleMorePosts(`prev`)}
+          onClick={(e) => handleMorePosts(e, `prev`)}
         >
           &lt; previous
-        </button>
+        </a>
       }
-      <button
+      <a
+        href={`https://reddit.pimenta.co${getPaginationUrl('next')}`}
         className={`
           px-4
           pt-1
@@ -57,10 +65,10 @@ function Header(props) {
           font-semibold
           rounded
         `}
-        onClick={() => handleMorePosts(`next`)}
+        onClick={(e) => handleMorePosts(e, `next`)}
       >
         next &gt;
-      </button>
+      </a>
     </div>
   )
 }
