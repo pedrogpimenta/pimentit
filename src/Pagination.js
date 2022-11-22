@@ -39,7 +39,7 @@ function Header(props) {
     style={{justifyContent: props.count >= 25 ? 'space-between' : 'flex-end'}}>
       {props.count >= 25 &&
         <a
-          href={`https://reddit.pimenta.co${getPaginationUrl('next')}`}
+          href={`//reddit.pimenta.co${getPaginationUrl('next')}`}
           className={`
             px-4
             pt-1
@@ -55,7 +55,7 @@ function Header(props) {
         </a>
       }
       <a
-        href={`https://reddit.pimenta.co${getPaginationUrl('next')}`}
+        href={`//reddit.pimenta.co${getPaginationUrl('next')}`}
         className={`
           px-4
           pt-1
