@@ -223,11 +223,9 @@ class PostPreview extends React.Component {
             onClick={() => this.handleThumbClick()}
           >
             <div className={`
-              flex
-              px-1
+              w-4
+              h-4
             `}>
-              <TextIcon fill={`white`} />
-              <TextIcon fill={`white`} />
               <TextIcon fill={`white`} />
             </div>
           </div>
