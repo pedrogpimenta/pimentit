@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import qs from 'query-string';
 
 import PostPreview from './PostPreview.js';
@@ -189,11 +189,10 @@ class RedditContent extends React.Component {
                     border-gray-400 dark:border-gray-700
                 ">
                   <div className="flex justify-between">
-                    <span>
-                      <span className="dark:text-white font-bold">{this.state.subredditType === 'subreddit' ? 'r/': 'u/'}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}</span>
-                      <span className="dark:text-white"> - </span>
+                   <span className="" style={{maxWidth: '92%'}}>
+                      <span className="dark:text-white font-bold overflow-ellipsis overflow-hidden block mb-1 max-w-full">{this.state.subredditType === 'subreddit' ? 'r/': 'u/'}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}</span>
                       <span className="dark:text-white">sort by: </span>
-                      <span className="inline-flex align-middle">
+                      <span className="inline-block align-middle">
                         <Select
                           styles={{
                             container: (baseStyles) => ({
@@ -207,7 +206,6 @@ class RedditContent extends React.Component {
                               width: '100px',
                               height: '26px',
                               minHeight: '26px',
-                              paddingTop: '1px',
                               paddingBottom: '10px',
                               background: 'black',
                             }),
@@ -215,7 +213,7 @@ class RedditContent extends React.Component {
                               ...baseStyles,
                               width: '100px',
                               height: '26px',
-                              top: '-4px',
+                              top: '-2px',
                               color: 'white',
                             }),
                             singleValue: (baseStyles) => ({
