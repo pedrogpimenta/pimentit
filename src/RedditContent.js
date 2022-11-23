@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import qs from 'query-string';
 
 import PostPreview from './PostPreview.js';
@@ -52,9 +52,9 @@ class RedditContent extends React.Component {
       `https://www.reddit.com/r/${subreddit}/${sortBy}/.json?limit=25` :
       `https://www.reddit.com/user/${subreddit}/submitted/.json?sort=${sortBy}&limit=25`;
     
-    if (!!after) {
+    if (!sortOrder && !!after) {
       fetchUrl += `&count=${count}&after=${after}`;
-    } else if (!!before) {
+    } else if (!sortOrder && !!before) {
       fetchUrl += `&count=${count}&before=${before}`;
     }
 
@@ -137,6 +137,7 @@ class RedditContent extends React.Component {
   }
   
   handleSelectOnChange(selected) {
+    this.props.history.push(`/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`)
     this.fetchData(selected.value);
   }
 
@@ -178,79 +179,81 @@ class RedditContent extends React.Component {
         {!this.state.subredditError && !this.state.isLoading &&
           <>
             <div className={`pt-10`}>
-              <div
-                className="
-                  py-1
-                  px-2
-                  bg-white dark:bg-black
-                  border-b-2 last:border-0
-                  border-solid
-                  border-gray-400 dark:border-gray-700
-              ">
-                <div className="flex justify-between">
-                  <span>
-                    <span className="dark:text-white font-bold">{this.state.subredditType === 'subreddit' ? 'r/': 'u/'}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}</span>
-                    <span className="dark:text-white"> - </span>
-                    <span className="dark:text-white">sort by: </span>
-                    <span className="inline-flex align-middle">
-                      <Select
-                        styles={{
-                          container: (baseStyles) => ({
-                            ...baseStyles,
-                            display: 'inline-flex',
-                            // width: '100px',
-                          }),
-                          control: (baseStyles) => ({
-                            ...baseStyles,
-                            display: 'inline-flex',
-                            width: '100px',
-                            height: '26px',
-                            minHeight: '26px',
-                            paddingTop: '1px',
-                            paddingBottom: '10px',
-                            background: 'black',
-                          }),
-                          valueContainer: (baseStyles) => ({
-                            ...baseStyles,
-                            width: '100px',
-                            height: '26px',
-                            top: '-4px',
-                            color: 'white',
-                          }),
-                          singleValue: (baseStyles) => ({
-                            ...baseStyles,
-                            color: 'white',
-                          }),
-                          indicatorsContainer: (baseStyles) => ({
-                            ...baseStyles,
-                            height: '26px',
-                            position: 'relative',
-                            top: '-2px',
-                          }),
-                        }}
-                        isSearchable={false}
-                        defaultValue={{value: this.state.sortBy, label: this.state.sortBy}}
-                        options={[
-                          {value: 'new', label: 'new'},
-                          {value: 'hot', label: 'hot'},
-                          {value: 'top', label: 'top'},
-                          {value: 'controversial', label: 'controversial'},
-                          {value: 'rising', label: 'rising'},
-                        ]}
-                        onChange={(selected) => this.handleSelectOnChange(selected)}
-                      />
+              {this.state.count < 25 &&
+                <div
+                  className="
+                    py-1
+                    px-2
+                    bg-white dark:bg-black
+                    border-b-2 last:border-0
+                    border-solid
+                    border-gray-400 dark:border-gray-700
+                ">
+                  <div className="flex justify-between">
+                    <span>
+                      <span className="dark:text-white font-bold">{this.state.subredditType === 'subreddit' ? 'r/': 'u/'}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}</span>
+                      <span className="dark:text-white"> - </span>
+                      <span className="dark:text-white">sort by: </span>
+                      <span className="inline-flex align-middle">
+                        <Select
+                          styles={{
+                            container: (baseStyles) => ({
+                              ...baseStyles,
+                              display: 'inline-flex',
+                              // width: '100px',
+                            }),
+                            control: (baseStyles) => ({
+                              ...baseStyles,
+                              display: 'inline-flex',
+                              width: '100px',
+                              height: '26px',
+                              minHeight: '26px',
+                              paddingTop: '1px',
+                              paddingBottom: '10px',
+                              background: 'black',
+                            }),
+                            valueContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              width: '100px',
+                              height: '26px',
+                              top: '-4px',
+                              color: 'white',
+                            }),
+                            singleValue: (baseStyles) => ({
+                              ...baseStyles,
+                              color: 'white',
+                            }),
+                            indicatorsContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              height: '26px',
+                              position: 'relative',
+                              top: '-2px',
+                            }),
+                          }}
+                          isSearchable={false}
+                          defaultValue={{value: this.state.sortBy, label: this.state.sortBy}}
+                          options={[
+                            {value: 'new', label: 'new'},
+                            {value: 'hot', label: 'hot'},
+                            {value: 'top', label: 'top'},
+                            {value: 'controversial', label: 'controversial'},
+                            {value: 'rising', label: 'rising'},
+                          ]}
+                          onChange={(selected) => this.handleSelectOnChange(selected)}
+                        />
+                      </span>
                     </span>
-                  </span>
-                  <a
-                    className={`ml-2`}
-                    target='_blank'
-                    rel="noopener noreferrer"
-                    href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
-                  >
-                    <RedditIcon fill={`#a0aec0`}/>
-                  </a>
+                    <a
+                      className={`ml-2`}
+                      target='_blank'
+                      rel="noopener noreferrer"
+                      href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
+                    >
+                      <RedditIcon fill={`#a0aec0`}/>
+                    </a>
+                  </div>
                 </div>
-              </div>
+              }
               <ul
                 className={`
                   list-none
