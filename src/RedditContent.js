@@ -137,7 +137,6 @@ class RedditContent extends React.Component {
   }
   
   handleSelectOnChange(selected) {
-    this.props.history.push(`/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`)
     this.fetchData(selected.value);
   }
 
