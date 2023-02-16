@@ -50,7 +50,7 @@ class RedditContent extends React.Component {
     });
 
     let subredditsFrontpage = ''
-    const userSubreddits = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+    const userSubreddits = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
     
     if (userSubreddits) {
       userSubreddits.forEach((s, index) => {
@@ -120,7 +120,7 @@ class RedditContent extends React.Component {
 
   componentDidMount() {
     this.fetchData();
-    if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
+    if (localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
       this.setState({isSubInUserSubreddits: true})
     }
   }
@@ -137,10 +137,10 @@ class RedditContent extends React.Component {
     if ((this.props.match.params.subreddit !== prevProps.match.params.subreddit) || (this.props.location.search !== prevProps.location.search)) {
       this.setState({showAllPostsContent: false})
       this.fetchData();
-      if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) <= 0) {
+      if (localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) <= 0) {
         this.setState({isSubInUserSubreddits: false})
       }
-      if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
+      if (localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
         this.setState({isSubInUserSubreddits: true})
       }
     }
@@ -165,7 +165,7 @@ class RedditContent extends React.Component {
   }
 
   handleAddUserSubreddit(subreddit) {
-    const userSubreddits = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+    const userSubreddits = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
 
     if (this.state.isSubInUserSubreddits) {
       const subredditIndex = userSubreddits.findIndex((s) => s.value === subreddit)
@@ -211,7 +211,7 @@ class RedditContent extends React.Component {
             />
           </div>
         }
-        {(JSON.parse(localStorage.getItem('pimentitUserSubreddits')).length === 0 && this.state.subredditType === 'frontpage') &&
+        {(localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits')).length === 0 && this.state.subredditType === 'frontpage') &&
           <SubredditError error={this.state.error} message="you have no saved subreddits" />
         }
         {this.state.subredditError && this.state.subredditType !== 'frontpage' && 

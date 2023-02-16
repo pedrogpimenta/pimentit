@@ -11,7 +11,7 @@ import ImagePositionButton from './ImagePositionButton';
 
 function Header(props) {
 
-  const browserOptions = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+  const browserOptions = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
   const parsedBrowserOptions = browserOptions || []
   
   const options = parsedBrowserOptions.length ? parsedBrowserOptions : []
