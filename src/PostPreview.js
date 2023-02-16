@@ -303,12 +303,7 @@ class PostPreview extends React.Component {
             dark:text-white
             `}
           >
-            <a 
-              className={`inline-block`}
-              href={postUrl}
-            >
-              {post.title}
-            </a>
+            {post.title}
           </div>
         </div>
         <div
@@ -321,22 +316,32 @@ class PostPreview extends React.Component {
             pt-1
             overflow-y-hidden
             overflow-x-auto
+            justify-between
           `}
         >
-          <div>
-            {post.score} <PointsIcon fill={`#a0aec0`}/>
+          <div className={`flex items-center`}>
+            <div>
+              {post.score} <PointsIcon fill={`#a0aec0`}/>
+            </div>
+            <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
           </div>
-          <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
-          <div className={`
-            flex-grow
-            text-right
-          `}>
-            <a
-              className={`ml-2`}
-              href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
-            >
-              <RedditIcon fill={`#a0aec0`}/>
-            </a>
+          <div className={`flex items-center`}>
+            <div>
+              <a 
+                className={`inline-block`}
+                href={postUrl}
+              >
+                {new URL(postUrl).hostname.replace('www.','')}
+              </a>
+            </div>
+            <div>
+              <a
+                className={`ml-2`}
+                href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
+              >
+                <RedditIcon fill={`#a0aec0`}/>
+              </a>
+            </div>
           </div>
         </div>
         {this.state.showPostContent &&
