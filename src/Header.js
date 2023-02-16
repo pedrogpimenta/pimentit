@@ -10,20 +10,17 @@ import ImagePositionButton from './ImagePositionButton';
 
 
 function Header(props) {
-  const options = [
-    { value: 'all', label: 'all' },
-    { value: 'news', label: 'news' },
-    { value: 'portugal', label: 'portugal' },
-  ]
 
-  const dropdownHasCurrentSubreddit = options.findIndex(subs => subs.value === props.subreddit);
+  const browserOptions = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+  const parsedBrowserOptions = browserOptions || []
+  
+  const options = parsedBrowserOptions.length ? parsedBrowserOptions : []
 
-  if (!!dropdownHasCurrentSubreddit) {
-    options.splice(dropdownHasCurrentSubreddit, 1);
-    options.unshift({ value: props.subreddit, label: props.subreddit});
-  } else {
-    options.unshift({ value: props.subreddit, label: props.subreddit});
-  }
+  localStorage.setItem('pimentitUserSubreddits', JSON.stringify(options))
+
+  const optionsWithDefaults = options
+  optionsWithDefaults.unshift({label: 'all', value: 'all'})
+  optionsWithDefaults.unshift({label: 'frontpage', value: ''})
 
   let history = useHistory();
   
@@ -32,7 +29,11 @@ function Header(props) {
   };
 
   const handleOnChange = (selectedOption) => {
-    history.push(`/r/${selectedOption.value}`)
+    if (selectedOption.label === 'frontpage') {
+      history.push(`/`)
+    } else {
+      history.push(`/r/${selectedOption.value}`)
+    }
   };
 
   return(
@@ -69,7 +70,7 @@ function Header(props) {
       >
         <CreatableSelect
           formatCreateLabel={(inputValue => 'Open r/' + inputValue)}
-          options={options}
+          options={optionsWithDefaults}
           styles={{
             control: base => ({
               ...base,

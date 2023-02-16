@@ -9,7 +9,7 @@ import SubredditError from './SubredditError.js';
 import Select from 'react-select';
 import RedditIcon from './imageComponents/RedditIcon';
 
-const DEFAULT_SUBREDDIT = 'all';
+const DEFAULT_SUBREDDIT = 'frontpage';
 const IMAGE_ON_LEFT = localStorage.getItem('imageOnLeft') === 'false' ? false : true;
 const DARK_MODE = localStorage.getItem('pimentitDarkMode') === 'false' ? false : true;
 
@@ -29,6 +29,7 @@ class RedditContent extends React.Component {
       darkMode: DARK_MODE,
       subredditType: '',
       sortBy: '',
+      isSubInUserSubreddits: false,
     }
   }
 
@@ -39,7 +40,7 @@ class RedditContent extends React.Component {
     const count = parsedQuery.count || this.state.count;
     const after = parsedQuery.after;
     const before = parsedQuery.before;
-    const sortBy = sortOrder || (type === 'subreddit' ? 'hot' : 'new');
+    const sortBy = sortOrder || 'hot';
 
     this.setState({
       count: count,
@@ -48,9 +49,22 @@ class RedditContent extends React.Component {
       sortBy: sortBy,
     });
 
-    let fetchUrl = type === 'subreddit' ?
-      `https://www.reddit.com/r/${subreddit}/${sortBy}/.json?limit=25` :
-      `https://www.reddit.com/user/${subreddit}/submitted/.json?sort=${sortBy}&limit=25`;
+    let subredditsFrontpage = ''
+    const userSubreddits = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+    
+    if (userSubreddits) {
+      userSubreddits.forEach((s, index) => {
+        if (index === 0) {
+          subredditsFrontpage = s.value
+        } else {
+          subredditsFrontpage = subredditsFrontpage+'+'+s.value
+        }
+      })
+    }
+
+    let fetchUrl = type === 'frontpage' ? `https://www.reddit.com/r/${subredditsFrontpage}/${sortBy}/.json?limit=25` :
+                   type === 'subreddit' ? `https://www.reddit.com/r/${subreddit}/${sortBy}/.json?limit=25` :
+                   `https://www.reddit.com/user/${subreddit}/submitted/.json?sort=${sortBy}&limit=25`;
     
     if (!sortOrder && !!after) {
       fetchUrl += `&count=${count}&after=${after}`;
@@ -103,8 +117,12 @@ class RedditContent extends React.Component {
       })
   }
 
+
   componentDidMount() {
     this.fetchData();
+    if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
+      this.setState({isSubInUserSubreddits: true})
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -119,6 +137,12 @@ class RedditContent extends React.Component {
     if ((this.props.match.params.subreddit !== prevProps.match.params.subreddit) || (this.props.location.search !== prevProps.location.search)) {
       this.setState({showAllPostsContent: false})
       this.fetchData();
+      if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) <= 0) {
+        this.setState({isSubInUserSubreddits: false})
+      }
+      if (JSON.parse(localStorage.getItem('pimentitUserSubreddits')).findIndex((s) => s.value === this.props.match.params.subreddit) > 0) {
+        this.setState({isSubInUserSubreddits: true})
+      }
     }
   }
 
@@ -138,6 +162,21 @@ class RedditContent extends React.Component {
   
   handleSelectOnChange(selected) {
     this.fetchData(selected.value);
+  }
+
+  handleAddUserSubreddit(subreddit) {
+    const userSubreddits = JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+
+    if (this.state.isSubInUserSubreddits) {
+      const subredditIndex = userSubreddits.findIndex((s) => s.value === subreddit)
+      userSubreddits.splice(subredditIndex, 1)
+      this.setState({isSubInUserSubreddits: false})
+    } else {
+      userSubreddits.push({value: subreddit, label: subreddit})
+      this.setState({isSubInUserSubreddits: true})
+    }
+  
+    localStorage.setItem('pimentitUserSubreddits', JSON.stringify(userSubreddits))
   }
 
   render() {
@@ -172,7 +211,10 @@ class RedditContent extends React.Component {
             />
           </div>
         }
-        {this.state.subredditError &&
+        {(JSON.parse(localStorage.getItem('pimentitUserSubreddits')).length === 0 && this.state.subredditType === 'frontpage') &&
+          <SubredditError error={this.state.error} message="you have no saved subreddits" />
+        }
+        {this.state.subredditError && this.state.subredditType !== 'frontpage' && 
           <SubredditError error={this.state.error} message={this.state.errorMessage} />
         }
         {!this.state.subredditError && !this.state.isLoading &&
@@ -190,7 +232,19 @@ class RedditContent extends React.Component {
                 ">
                   <div className="flex justify-between">
                    <span className="" style={{maxWidth: '92%'}}>
-                      <span className="dark:text-white font-bold overflow-ellipsis overflow-hidden block mb-1 max-w-full">{this.state.subredditType === 'subreddit' ? 'r/': 'u/'}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}</span>
+                      <span className="flex gap-2">
+                        <span className="dark:text-white font-bold overflow-ellipsis overflow-hidden block mb-1 max-w-full">
+                          {this.state.subredditType === 'subreddit' ? 'r/' : this.state.subredditType === 'user' ? 'u/' : ''}{this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+                        </span>
+                        {this.state.subredditType === 'subreddit' && this.props.match.params.subreddit !== 'all' &&
+                          <span
+                            className="text-gray-500"
+                            onClick={() => this.handleAddUserSubreddit(this.props.match.params.subreddit)}
+                          >
+                            ({this.state.isSubInUserSubreddits ? 'remove' : 'add'})
+                          </span>
+                        }
+                      </span>
                       <span className="dark:text-white">sort by: </span>
                       <span className="inline-block align-middle">
                         <Select

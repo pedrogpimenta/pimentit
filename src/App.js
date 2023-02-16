@@ -17,11 +17,14 @@ function App() {
         <Route path='/r/:subreddit'>
           <RedditContent type="subreddit"/>
         </Route>
+        <Route path='/u/:subreddit'>
+          <RedditContent type="user"/>
+        </Route>
         <Route path='/user/:subreddit'>
           <RedditContent type="user"/>
         </Route>
         <Route path='/'>
-          <RedditContent type="subreddit"/>
+          <RedditContent type="frontpage"/>
         </Route>
       </Switch>
     </Router>

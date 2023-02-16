@@ -9,7 +9,8 @@ function SubredditError(props) {
       justify-center
       z-10
       w-full
-      bg-white
+      bg-white dark:bg-black
+      text-black dark:text-white
       py-16
       px-2
     `}>
