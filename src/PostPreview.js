@@ -6,7 +6,9 @@ import {
 import LinkIcon from './imageComponents/LinkIcon';
 import TextIcon from './imageComponents/TextIcon';
 import PointsIcon from './imageComponents/PointsIcon';
+import AwardIcon from './imageComponents/AwardIcon';
 import CommentsIcon from './imageComponents/CommentsIcon';
+import OldIcon from './imageComponents/OldIcon';
 import RedditIcon from './imageComponents/RedditIcon';
 import Embed from './Embed';
 
@@ -288,7 +290,7 @@ class PostPreview extends React.Component {
             overflow-x-auto
           `}
         >
-          <Link to={`/r/${post.subreddit}`}>{post.subreddit_name_prefixed}</Link> - {moment(post.created * 1000).fromNow(true)} - <Link to={`/user/${post.author}`}>{`u/${post.author}`}</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
+          <Link to={`/r/${post.subreddit}`} target={`_blank`}>{post.subreddit_name_prefixed}</Link> - {moment(post.created * 1000).fromNow(true)} - <Link to={`/user/${post.author}`} target={`_blank`}>{`u/${post.author}`}</Link>{post.link_flair_text && ` - [${post.link_flair_text}]`}
         </div>
         <div
           className={`
@@ -325,13 +327,19 @@ class PostPreview extends React.Component {
             <div>
               {post.score} <PointsIcon fill={`#a0aec0`}/>
             </div>
-            <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`}>{post.num_comments} <CommentsIcon fill={`#a0aec0`}/></Link>
+            <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`} target={`_blank`}>
+              {post.num_comments} <CommentsIcon fill={`#a0aec0`}/>
+            </Link>
+            <div className={`ml-2`}>
+              {post.total_awards_received} <AwardIcon fill={`#a0aec0`}/>
+            </div>
           </div>
           <div className={`flex items-center`}>
             <div>
               <a 
                 className={`inline-block`}
                 href={postUrl}
+                target={`_blank`}
               >
                 {new URL(postUrl).hostname.replace('www.','')}
               </a>
@@ -340,6 +348,14 @@ class PostPreview extends React.Component {
               <a
                 className={`ml-2`}
                 href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
+                target={`_blank`}
+              >
+                <OldIcon fill={`#a0aec0`}/>
+              </a>
+              <a
+                className={`ml-2`}
+                href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
+                target={`_blank`}
               >
                 <RedditIcon fill={`#a0aec0`}/>
               </a>

@@ -75,7 +75,7 @@ class Comment extends React.Component {
                 overflow-x-auto
               `}
             >
-              <a href={`//old.reddit.com/u/${comment.author}`} target={`_blank`}>{comment.author}</a> - <Moment fromNow ago date={comment.created * 1000} />
+              <a href={`/user/${comment.author}`} target={`_blank`}>u/{comment.author}</a> - <Moment fromNow ago date={comment.created * 1000} />
             </div>
             <div
               className={`
