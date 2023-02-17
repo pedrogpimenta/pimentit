@@ -125,7 +125,47 @@ class PostPreview extends React.Component {
           }
         </div>
       )
-
+    } else if (post.is_gallery) {
+      return (
+        <div
+          className={`
+            relative
+            flex-shrink-0
+            w-12
+            h-12
+            mt-1
+            ${imagePositionClasses}
+          `}
+          onClick={() => this.handleThumbClick()}
+        >
+          <div className={`
+            w-full
+            h-full
+            bg-black
+            rounded
+            overflow-hidden
+          `}
+          >
+            <img
+              className={`
+                object-cover
+                w-full
+                h-full
+              `}
+              sizes={`48px`}
+              // srcSet={
+              //   post.preview.images[0].resolutions.map(resolution => {
+              //     return (
+              //       `${resolution.url.replace(/&amp;/g, `&`)} ${resolution.width}w`
+              //     )
+              //   })
+              // }
+              src={post.thumbnail}
+              alt={post.title}
+            />
+          </div>
+        </div>
+      )
     } else if (post.thumbnail === 'default') {
       return (
         <div
@@ -341,7 +381,8 @@ class PostPreview extends React.Component {
                 href={postUrl}
                 target={`_blank`}
               >
-                {new URL(postUrl).hostname.replace('www.','')}
+                {post.is_self && `(self)`}
+                {!post.is_self && new URL(postUrl).hostname.replace('www.','')}
               </a>
             </div>
             <div>
