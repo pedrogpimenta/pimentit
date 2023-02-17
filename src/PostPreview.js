@@ -355,12 +355,12 @@ class PostPreview extends React.Component {
           className={`
             flex
             items-center
+            gap-3
             text-gray-500
             text-sm
             whitespace-nowrap
             pt-1
-            overflow-y-hidden
-            overflow-x-auto
+            overflow-hidden
             justify-between
           `}
         >
@@ -375,10 +375,10 @@ class PostPreview extends React.Component {
               {post.total_awards_received} <AwardIcon fill={`#a0aec0`}/>
             </div>
           </div>
-          <div className={`flex items-center`}>
-            <div>
+          <div className={`flex flex-grow items-center`}>
+            <div className="flex flex-grow overflow-x-auto">
               <a 
-                className={`inline-block`}
+                className={`inline-block max-w-0`}
                 href={postUrl}
                 target={`_blank`}
               >
