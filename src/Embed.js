@@ -275,6 +275,47 @@ function Embed(props) {
         `}
       />
     )
+  } else if (props.post.is_gallery) {
+    const imagesArray = []
+
+    const postImages = props.post.media_metadata
+
+    Object.keys(postImages).forEach((key) => {
+      imagesArray.push(htmlEntities(postImages[key].s.u))
+    })
+    
+    return (
+      <div
+        style={{
+          width: window.innerWidth,
+          maxWidth: `100%`,
+        }}
+        className={`
+          relative
+          flex
+          flex-col
+          gap-2
+          items-start
+          justify-center
+          bg-black
+          my-2
+          overflow-hidden
+        `}
+      >
+        {imagesArray.map((img) => (
+          <img
+            className={`
+              object-contain
+              w-full
+              h-full
+              bg-red-500
+            `}
+            src={img}
+            alt={props.post.title}
+          />
+        ))}
+      </div>
+    )    
   }
 
   return null;

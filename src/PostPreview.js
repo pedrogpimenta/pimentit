@@ -11,6 +11,7 @@ import CommentsIcon from './imageComponents/CommentsIcon';
 import OldIcon from './imageComponents/OldIcon';
 import RedditIcon from './imageComponents/RedditIcon';
 import Embed from './Embed';
+import { htmlEntities } from './helpers/htmlEntities';
 
 class PostPreview extends React.Component {
   constructor() {
@@ -347,7 +348,7 @@ class PostPreview extends React.Component {
             dark:text-white
             `}
           >
-            {post.title}
+            {htmlEntities(post.title)}
           </div>
         </div>
         <div
