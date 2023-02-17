@@ -277,10 +277,11 @@ function Embed(props) {
     )
   } else if (props.post.is_gallery) {
     const imagesArray = []
+    const imagesOrder = props.post.gallery_data.items.map((item) => item.media_id)
 
     const postImages = props.post.media_metadata
 
-    Object.keys(postImages).forEach((key) => {
+    imagesOrder.forEach((key) => {
       imagesArray.push(htmlEntities(postImages[key].s.u))
     })
     
