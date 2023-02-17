@@ -354,7 +354,7 @@ class PostPreview extends React.Component {
               </a>
               <a
                 className={`ml-2`}
-                href={`//old.reddit.com/r/${post.subreddit}/comments/${post.id}`}
+                href={`//reddit.com/r/${post.subreddit}/comments/${post.id}`}
                 target={`_blank`}
               >
                 <RedditIcon fill={`#a0aec0`}/>
