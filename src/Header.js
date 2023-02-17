@@ -110,7 +110,7 @@ function Header(props) {
           }}
           // defaultValue={{value: props.subreddit, label: props.subreddit}}
           // inputValue={props.subreddit}
-          value={{value: props.subreddit, label: `${props.subreddit}`}}
+          value={props.subredditType === 'frontpage' ? {value: 'frontpage', label: 'frontpage'} : {value: props.subreddit, label: `${props.subreddit}`}}
           onChange={(selectedOption) => {handleOnChange(selectedOption)}}
         />
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function Header(props) {
+function Pagination(props) {
   let history = useHistory();
 
   const handleMorePosts = (e, direction) => {
@@ -23,10 +23,13 @@ function Header(props) {
           fetchDirection = direction ? `&before=${props.firstPostName}` : ``;
           fetchCount = `count=${parseInt(props.count) - 25}`;
         }
-
       }
 
-      return `/r/${props.subreddit}/?${fetchCount}${fetchDirection}`;
+      if (props.subredditType === 'frontpage') {
+        return `/?${fetchCount}${fetchDirection}`;
+      } else {
+        return `/r/${props.currentSubreddit}/?${fetchCount}${fetchDirection}`;
+      }
     }
   }
 
@@ -73,4 +76,4 @@ function Header(props) {
   )
 }
 
-export default Header;
+export default Pagination;

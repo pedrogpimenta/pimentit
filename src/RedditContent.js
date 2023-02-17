@@ -27,6 +27,7 @@ class RedditContent extends React.Component {
       imageOnLeft: IMAGE_ON_LEFT,
       showAllPostsContent: false,
       darkMode: DARK_MODE,
+      currentSubreddit: DEFAULT_SUBREDDIT,
       subredditType: '',
       sortBy: '',
       isSubInUserSubreddits: false,
@@ -35,35 +36,38 @@ class RedditContent extends React.Component {
 
   fetchData(sortOrder) {
     const type = this.props.type;
-    const subreddit = this.props.match.params.subreddit || DEFAULT_SUBREDDIT;
+    let subreddit = this.props.match.params.subreddit || this.state.currentSubreddit;
     const parsedQuery = qs.parse(this.props.location.search)
-    const count = parsedQuery.count || this.state.count;
+    const count = parsedQuery.count || 0;
     const after = parsedQuery.after;
     const before = parsedQuery.before;
     const sortBy = sortOrder || 'hot';
+
+    if (type === 'frontpage') {
+      const userSubreddits = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+    
+      if (userSubreddits) {
+        userSubreddits.forEach((s, index) => {
+          if (index === 0) {
+            subreddit = s.value
+          } else {
+            subreddit = subreddit+'+'+s.value
+          }
+        })
+      }
+    }
+
 
     this.setState({
       count: count,
       isLoading: true,
       subredditType: type,
       sortBy: sortBy,
+      currentSubreddit: subreddit,
     });
 
-    let subredditsFrontpage = ''
-    const userSubreddits = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
-    
-    if (userSubreddits) {
-      userSubreddits.forEach((s, index) => {
-        if (index === 0) {
-          subredditsFrontpage = s.value
-        } else {
-          subredditsFrontpage = subredditsFrontpage+'+'+s.value
-        }
-      })
-    }
 
-    let fetchUrl = type === 'frontpage' ? `https://www.reddit.com/r/${subredditsFrontpage}/${sortBy}/.json?limit=25` :
-                   type === 'subreddit' ? `https://www.reddit.com/r/${subreddit}/${sortBy}/.json?limit=25` :
+    let fetchUrl = (type === 'subreddit' || type === 'frontpage') ? `https://www.reddit.com/r/${subreddit}/${sortBy}/.json?limit=25` :
                    `https://www.reddit.com/user/${subreddit}/submitted/.json?sort=${sortBy}&limit=25`;
     
     if (!sortOrder && !!after) {
@@ -184,7 +188,8 @@ class RedditContent extends React.Component {
       <div className={this.state.darkMode && 'dark'}>
         <Header
           at="RedditContent"
-          subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+          subreddit={this.state.currentSubreddit}
+          subredditType={this.state.subredditType}
           handleImagePositionChange={() => this.handleImagePositionChange()}
           handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
           handleDarkModeButton={() => this.handleDarkModeButton()}
@@ -325,7 +330,8 @@ class RedditContent extends React.Component {
               </ul>
             </div>
             <Pagination
-              subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+              subredditType={this.state.subredditType}
+              currentSubreddit={this.state.currentSubreddit}
               count={this.state.count}
               lastPostName={this.state.posts[this.state.posts?.length - 1]?.data?.name}
               firstPostName={this.state.posts[0]?.data?.name}
