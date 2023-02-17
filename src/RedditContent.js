@@ -45,6 +45,7 @@ class RedditContent extends React.Component {
 
     if (type === 'frontpage') {
       const userSubreddits = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
+      subreddit = ''
     
       if (userSubreddits) {
         userSubreddits.forEach((s, index) => {
