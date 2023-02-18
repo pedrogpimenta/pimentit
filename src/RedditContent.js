@@ -187,17 +187,6 @@ class RedditContent extends React.Component {
   render() {
     return (
       <div className={this.state.darkMode && 'dark'}>
-        <Header
-          at="RedditContent"
-          subreddit={this.state.currentSubreddit}
-          subredditType={this.state.subredditType}
-          handleImagePositionChange={() => this.handleImagePositionChange()}
-          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
-          handleDarkModeButton={() => this.handleDarkModeButton()}
-          showAllPostsContent={this.state.showAllPostsContent}
-          imageOnLeft={this.state.imageOnLeft}
-          darkMode={this.state.darkMode}
-        />
         {this.state.isLoading &&
           <div className={`
             flex
@@ -339,6 +328,17 @@ class RedditContent extends React.Component {
             />
           </>
         }
+        <Header
+          at="RedditContent"
+          subreddit={this.state.currentSubreddit}
+          subredditType={this.state.subredditType}
+          handleImagePositionChange={() => this.handleImagePositionChange()}
+          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
+          handleDarkModeButton={() => this.handleDarkModeButton()}
+          showAllPostsContent={this.state.showAllPostsContent}
+          imageOnLeft={this.state.imageOnLeft}
+          darkMode={this.state.darkMode}
+        />
       </div>
     )
   }
