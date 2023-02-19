@@ -371,9 +371,11 @@ class PostPreview extends React.Component {
             <Link className={`ml-2`} to={`/r/${post.subreddit}/comments/${post.id}`} target={`_blank`}>
               {post.num_comments} <CommentsIcon fill={`#a0aec0`}/>
             </Link>
-            <div className={`ml-2`}>
-              {post.total_awards_received} <AwardIcon fill={`#a0aec0`}/>
-            </div>
+            {post.total_awards_received > 0 &&
+              <div className={`ml-2`}>
+                {post.total_awards_received} <AwardIcon fill={`#a0aec0`}/>
+              </div>
+             }
           </div>
           <div className={`flex flex-grow items-center`}>
             <div className="flex flex-grow overflow-x-auto">

@@ -7,6 +7,7 @@ import Pagination from './Pagination.js';
 import Header from './Header.js';
 import SubredditError from './SubredditError.js';
 import Select from 'react-select';
+import OldIcon from './imageComponents/OldIcon';
 import RedditIcon from './imageComponents/RedditIcon';
 
 const DEFAULT_SUBREDDIT = 'frontpage';
@@ -187,23 +188,12 @@ class RedditContent extends React.Component {
   render() {
     return (
       <div className={this.state.darkMode && 'dark'}>
-        <Header
-          at="RedditContent"
-          subreddit={this.state.currentSubreddit}
-          subredditType={this.state.subredditType}
-          handleImagePositionChange={() => this.handleImagePositionChange()}
-          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
-          handleDarkModeButton={() => this.handleDarkModeButton()}
-          showAllPostsContent={this.state.showAllPostsContent}
-          imageOnLeft={this.state.imageOnLeft}
-          darkMode={this.state.darkMode}
-        />
         {this.state.isLoading &&
           <div className={`
             flex
             items-center
             justify-center
-            pt-20
+            pb-20
             px-2
             h-screen
             `}>
@@ -225,7 +215,7 @@ class RedditContent extends React.Component {
         }
         {!this.state.subredditError && !this.state.isLoading &&
           <>
-            <div className={`pt-10`}>
+            <div>
               {this.state.count < 25 &&
                 <div
                   className="
@@ -300,14 +290,24 @@ class RedditContent extends React.Component {
                         />
                       </span>
                     </span>
-                    <a
-                      className={`ml-2`}
-                      target='_blank'
-                      rel="noopener noreferrer"
-                      href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
-                    >
-                      <RedditIcon fill={`#a0aec0`}/>
-                    </a>
+                    <span>
+                      <a
+                        className={`ml-2`}
+                        target='_blank'
+                        rel="noopener noreferrer"
+                        href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
+                      >
+                        <OldIcon fill={`#a0aec0`}/>
+                      </a>
+                      <a
+                        className={`ml-2`}
+                        target='_blank'
+                        rel="noopener noreferrer"
+                        href={`//reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
+                      >
+                        <RedditIcon fill={`#a0aec0`}/>
+                      </a>
+                    </span>
                   </div>
                 </div>
               }
@@ -339,6 +339,17 @@ class RedditContent extends React.Component {
             />
           </>
         }
+        <Header
+          at="RedditContent"
+          subreddit={this.state.currentSubreddit}
+          subredditType={this.state.subredditType}
+          handleImagePositionChange={() => this.handleImagePositionChange()}
+          handleShowAllPostsContent={() => this.handleShowAllPostsContent()}
+          handleDarkModeButton={() => this.handleDarkModeButton()}
+          showAllPostsContent={this.state.showAllPostsContent}
+          imageOnLeft={this.state.imageOnLeft}
+          darkMode={this.state.darkMode}
+        />
       </div>
     )
   }

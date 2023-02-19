@@ -37,7 +37,8 @@ function Pagination(props) {
     <div className={`
       flex
       py-4
-      px-2
+      pt-2
+      pb-12
     `}
     style={{justifyContent: props.count >= 25 ? 'space-between' : 'flex-end'}}>
       {props.count >= 25 &&

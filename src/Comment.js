@@ -18,6 +18,7 @@ class Comment extends React.Component {
 
   render() {
     const comment = this.props.comment.data;
+    const postAuthor = this.props.postAuthor;
     const hideElements = this.state.showComment ? '' : 'hidden';
 
     return (
@@ -75,7 +76,13 @@ class Comment extends React.Component {
                 overflow-x-auto
               `}
             >
-              <a href={`/user/${comment.author}`} target={`_blank`}>u/{comment.author}</a> - <Moment fromNow ago date={comment.created * 1000} />
+              <a
+                href={`/user/${comment.author}`}
+                target={`_blank`}
+                className={comment.author === postAuthor && `text-primary`}
+              >
+                u/{comment.author}
+              </a> - <Moment fromNow ago date={comment.created * 1000} />
             </div>
             <div
               className={`
@@ -94,7 +101,12 @@ class Comment extends React.Component {
               <ul>
                 {!!comment.replies && comment.replies.data.children.map(comment => {
                   return (
-                    <Reply key={comment.data.id} comment={comment} parent={this.props.comment.data.permalink} />
+                    <Reply
+                      key={comment.data.id}
+                      comment={comment}
+                      postAuthor={postAuthor}
+                      parent={this.props.comment.data.permalink}
+                    />
                   )
                 })}
               </ul>

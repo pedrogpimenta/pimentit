@@ -43,9 +43,10 @@ function Header(props) {
       items-center
       z-30
       w-full
+      bottom-0
       bg-white
       dark:bg-black
-      border-b-2
+      border-t-2
       border-solid
       border-gray-400
       dark:border-gray-700
@@ -71,6 +72,7 @@ function Header(props) {
         <CreatableSelect
           formatCreateLabel={(inputValue => 'Open r/' + inputValue)}
           options={optionsWithDefaults}
+          menuPlacement="top"
           styles={{
             control: base => ({
               ...base,
