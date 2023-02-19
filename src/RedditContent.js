@@ -59,7 +59,6 @@ class RedditContent extends React.Component {
       }
     }
 
-
     this.setState({
       count: count,
       isLoading: true,
@@ -150,6 +149,8 @@ class RedditContent extends React.Component {
         this.setState({isSubInUserSubreddits: true})
       }
     }
+
+    document.title = this.state.subredditType === 'frontpage' ? 'frontpage - pimentit' : `${this.state.subredditType === 'user' ? 'u' : 'r'}/${this.state.currentSubreddit} - pimentit`
   }
 
   handleImagePositionChange() {
