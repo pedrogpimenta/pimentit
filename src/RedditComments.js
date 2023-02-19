@@ -126,7 +126,7 @@ class RedditComments extends React.Component {
             flex
             items-center
             justify-center
-            pb-20
+            pt-20
             px-2
             `}>
             <img
@@ -144,7 +144,7 @@ class RedditComments extends React.Component {
         }
         {!this.state.subredditError && !this.state.isLoading &&
           <>
-            <div className={`pt-10`}>
+            <div className={`pb-10`}>
               <ul
                 className={`
                   list-none
