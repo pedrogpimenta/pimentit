@@ -126,7 +126,7 @@ class RedditComments extends React.Component {
             flex
             items-center
             justify-center
-            pt-20
+            pb-20
             px-2
             `}>
             <img
