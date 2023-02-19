@@ -43,6 +43,7 @@ function Header(props) {
       items-center
       z-30
       w-full
+      bottom-0
       bg-white
       dark:bg-black
       border-b-2
