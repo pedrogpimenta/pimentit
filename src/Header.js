@@ -72,6 +72,7 @@ function Header(props) {
         <CreatableSelect
           formatCreateLabel={(inputValue => 'Open r/' + inputValue)}
           options={optionsWithDefaults}
+          menuPlacement="top"
           styles={{
             control: base => ({
               ...base,
