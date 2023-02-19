@@ -214,7 +214,7 @@ class RedditContent extends React.Component {
         }
         {!this.state.subredditError && !this.state.isLoading &&
           <>
-            <div className={`pt-10`}>
+            <div className={`pb-10`}>
               {this.state.count < 25 &&
                 <div
                   className="
