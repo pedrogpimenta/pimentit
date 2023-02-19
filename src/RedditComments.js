@@ -144,7 +144,7 @@ class RedditComments extends React.Component {
         }
         {!this.state.subredditError && !this.state.isLoading &&
           <>
-            <div className={`pb-10`}>
+            <div className={`pt-10`}>
               <ul
                 className={`
                   list-none
@@ -169,7 +169,8 @@ class RedditComments extends React.Component {
               className={`
                 flex
                 max-w-full
-                py-2
+                pt-2
+                pb-12
               `}
             >
               <ul className={`
