@@ -105,6 +105,8 @@ class RedditComments extends React.Component {
 
       this.fetchData();
     }
+
+    document.title = this.state.post?.data?.title.length > 0 ? `${this.state.post?.data?.title} - pimentit` : 'pimentit'
   }
 
   handleMorePosts(direction) {
