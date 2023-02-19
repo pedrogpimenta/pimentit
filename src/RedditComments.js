@@ -45,6 +45,7 @@ class RedditComments extends React.Component {
             error: data.error,
             errorMessage: data.message,
             post: {},
+            postAuthor: null,
             comments: [],
           })
         } else if (!data[0].data.children) {
@@ -53,6 +54,7 @@ class RedditComments extends React.Component {
             subredditError: true,
             errorMessage: `r/${subreddit}: there doesn't seem to be anything here.`,
             post: {},
+            postAuthor: null,
             comments: [],
           })
         } else {
@@ -60,6 +62,7 @@ class RedditComments extends React.Component {
             isLoading: false,
             subredditError: false,
             post: data[0].data.children[0],
+            postAuthor: data[0].data.children[0].author,
             comments: data[1].data.children,
           });
         }
@@ -176,7 +179,7 @@ class RedditComments extends React.Component {
               className={`
                 flex
                 max-w-full
-                py-2
+                pb-2
               `}
             >
               <ul className={`
@@ -185,7 +188,12 @@ class RedditComments extends React.Component {
               `}>
                 {this.state.comments.map(comment => {
                   return (
-                    <Comment key={comment.data.id} comment={comment} parent={this.props.location.pathname} />
+                    <Comment
+                      key={comment.data.id}
+                      comment={comment}
+                      postAuthor={this.state.post.data.author}
+                      parent={this.props.location.pathname}
+                    />
                   )
                 })}
               </ul>
