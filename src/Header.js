@@ -46,7 +46,7 @@ function Header(props) {
       bottom-0
       bg-white
       dark:bg-black
-      border-b-2
+      border-t-2
       border-solid
       border-gray-400
       dark:border-gray-700
