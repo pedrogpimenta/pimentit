@@ -290,22 +290,24 @@ class RedditContent extends React.Component {
                         />
                       </span>
                     </span>
-                    <a
-                      className={`ml-2`}
-                      target='_blank'
-                      rel="noopener noreferrer"
-                      href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
-                    >
-                      <OldIcon fill={`#a0aec0`}/>
-                    </a>
-                    <a
-                      className={`ml-2`}
-                      target='_blank'
-                      rel="noopener noreferrer"
-                      href={`//reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
-                    >
-                      <RedditIcon fill={`#a0aec0`}/>
-                    </a>
+                    <span>
+                      <a
+                        className={`ml-2`}
+                        target='_blank'
+                        rel="noopener noreferrer"
+                        href={`//old.reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
+                      >
+                        <OldIcon fill={`#a0aec0`}/>
+                      </a>
+                      <a
+                        className={`ml-2`}
+                        target='_blank'
+                        rel="noopener noreferrer"
+                        href={`//reddit.com/r/${this.props.match.params.subreddit || DEFAULT_SUBREDDIT}`}
+                      >
+                        <RedditIcon fill={`#a0aec0`}/>
+                      </a>
+                    </span>
                   </div>
                 </div>
               }
