@@ -151,7 +151,7 @@ class RedditComments extends React.Component {
         }
         {!this.state.subredditError && !this.state.isLoading &&
           <>
-            <div className={`pt-10`}>
+            <div>
               <ul
                 className={`
                   list-none
