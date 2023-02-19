@@ -121,12 +121,19 @@ class RedditComments extends React.Component {
   render() {
     return (
       <div className={this.state.darkMode && 'dark'}>
+        <Header
+          at="RedditComments"
+          subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
+          handleImagePositionChange={() => this.handleImagePositionChange()}
+          handleDarkModeButton={() => this.handleDarkModeButton()}
+          imageOnLeft={this.state.imageOnLeft}
+          darkMode={this.state.darkMode}
+        />
         {this.state.isLoading &&
           <div className={`
             flex
             items-center
             justify-center
-            pt-20
             px-2
             `}>
             <img
@@ -169,8 +176,7 @@ class RedditComments extends React.Component {
               className={`
                 flex
                 max-w-full
-                pt-2
-                pb-12
+                py-2
               `}
             >
               <ul className={`
@@ -186,14 +192,6 @@ class RedditComments extends React.Component {
             </div>
           </>
         }
-        <Header
-          at="RedditComments"
-          subreddit={this.props.match.params.subreddit || DEFAULT_SUBREDDIT}
-          handleImagePositionChange={() => this.handleImagePositionChange()}
-          handleDarkModeButton={() => this.handleDarkModeButton()}
-          imageOnLeft={this.state.imageOnLeft}
-          darkMode={this.state.darkMode}
-        />
       </div>
     )
   }
