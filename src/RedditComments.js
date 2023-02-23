@@ -181,7 +181,7 @@ class RedditComments extends React.Component {
               className={`
                 flex
                 max-w-full
-                pb-2
+                pb-10
               `}
             >
               <ul className={`
