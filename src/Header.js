@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import { useHistory } from "react-router-dom";
 import PimentitLogo from './imageComponents/PimentitLogo';
 import ExpandIcon from './imageComponents/ExpandIcon';
@@ -10,6 +10,9 @@ import ImagePositionButton from './ImagePositionButton';
 
 
 function Header(props) {
+  const [shouldBeSearchable, setShouldBeSearchable] = useState(false)
+  const [selectIsFocused, setSelectIsFocused] = useState(false)
+  const selectRef = useRef()
 
   const browserOptions = localStorage.getItem('pimentitUserSubreddits') && JSON.parse(localStorage.getItem('pimentitUserSubreddits'))
   const parsedBrowserOptions = browserOptions || []
@@ -35,6 +38,8 @@ function Header(props) {
       history.push(`/r/${selectedOption.value}`)
     }
   };
+
+  const currentValue = selectIsFocused ? '' : props.subredditType === 'frontpage' ? {value: 'frontpage', label: 'frontpage'} : {value: props.subreddit, label: `${props.subreddit}`}
 
   return(
     <div className={`
@@ -65,6 +70,7 @@ function Header(props) {
       </div>
       <div
         className={`
+          relative
           mx-2
           flex-1
         `}
@@ -73,6 +79,8 @@ function Header(props) {
           formatCreateLabel={(inputValue => 'Open r/' + inputValue)}
           options={optionsWithDefaults}
           menuPlacement="top"
+          placeholder=""
+          ref={selectRef}
           styles={{
             control: base => ({
               ...base,
@@ -112,9 +120,36 @@ function Header(props) {
           }}
           // defaultValue={{value: props.subreddit, label: props.subreddit}}
           // inputValue={props.subreddit}
-          value={props.subredditType === 'frontpage' ? {value: 'frontpage', label: 'frontpage'} : {value: props.subreddit, label: `${props.subreddit}`}}
+          value={currentValue}
           onChange={(selectedOption) => {handleOnChange(selectedOption)}}
+          isSearchable={shouldBeSearchable}
+          onFocus={() => setTimeout(() => {
+              console.log('uepa2')
+              setShouldBeSearchable(true)
+            },
+            50
+          )}
+          onBlur={() => {
+            setShouldBeSearchable(false)
+            setSelectIsFocused(false)
+          }}
         />
+        <div
+          className={`
+            absolute
+            w-full
+            h-full
+            bg-transparent
+            top-0
+            left-0
+          `}
+          style={{display: shouldBeSearchable ? 'block' : 'none'}}
+          onClick={() => {
+            selectRef.current.focus()
+            setSelectIsFocused(true)
+          }}
+        >
+        </div>
       </div>
       <div
         className={`
